@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import webbanhang.dto.ProductDto;
+import webbanhang.entity.CategoryEntity;
 import webbanhang.entity.ProductEntity;
+import webbanhang.repository.CategoryRepository;
 import webbanhang.repository.ProductRepository;
 import webbanhang.service.ProductService;
 
@@ -33,14 +35,19 @@ public class ProductController {
 	@Autowired
 	private ProductRepository productRepository; 
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
 	@RequestMapping(value = "/admin/product",method = RequestMethod.GET)
 	public ModelAndView listProduct(@RequestParam(name = "pageIndex",defaultValue = "10") int pageIndex,@RequestParam(value = "pageSize",defaultValue = "1") int pageSize) {
 		ModelAndView modelAndView = new ModelAndView("admin/product/listProduct");		
 		
 		Page<ProductEntity> pageData =  productRepository.findAll(new PageRequest(pageIndex-1, pageSize));
 		List<ProductEntity> lisProductEntities = pageData.getContent();
+		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
 		Long totalProduct = pageData.getTotalElements();
 		int totalPage = pageData.getTotalPages();
+		modelAndView.addObject("listCategory",categoryEntities);
 		modelAndView.addObject("pageIndex",pageIndex);
 		modelAndView.addObject("pageSize",pageSize);
 		modelAndView.addObject("totalPage", totalPage);

@@ -7,5 +7,5 @@ import webbanhang.entity.CategoryEntity;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity,Long>{
-
+	
 }

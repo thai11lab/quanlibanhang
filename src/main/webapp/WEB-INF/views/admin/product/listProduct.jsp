@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Quản lí sản phẩm</title>
 </head>
-<c:url value="/admin/product" var="urlProducts"/>
+<c:url value="/admin/product?pageIndex=1&pageSize=10" var="urlProducts"/>
 <body>
     <div class="main-content">
         <div class="main-content-inner">
@@ -117,7 +117,7 @@
         		<ul class="pagination" id="pagination"></ul>
     		</nav>
     		<input type="hidden" name="pageIndex" id="pageIndex">
-    		<input type="hidden" name="pageSize" id="pageIndex">
+    		<input type="hidden" name="pageSize" id="pageSize">
     		<input type="hidden" id="idUpdate">
         </div>
         </form>
@@ -173,11 +173,16 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Text Field </label>
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="Username" class="col-xs-10 col-sm-9" />
-                            </div>
-                        </div>
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Select2 </label>
+										<div class="col-sm-9" style="width: 300px;">
+											<select name="basic[]" multiple="multiple" class="3col active">
+												<c:forEach var="itemCategory" items="${listCategory}">
+													<option value="${itemCategory.id}">${itemCategory.name}</option>
+												</c:forEach>
+                                                
+                                            </select>							
+										</div>
+						</div>
                     </div>
                     <div class="modal-footer no-margin-top" style="display: flex;justify-content: space-around;">
                         <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal" >
@@ -251,7 +256,7 @@
                             <i class="ace-icon fa fa-times"></i>
                             Close
                         </button>
-                        <button class="btn btn-sm btn-success pull-left"  id="submitEditProduct" >
+                        <button class="btn btn-sm btn-success pull-left" id="submitEditProduct" >
                             Submit
                         </button>
                     </div>
@@ -260,7 +265,18 @@
         </div><!-- /.modal-dialog -->
     </div><!-- PAGE CONTENT ENDS -->
     <script type="text/javascript">
-    
+	    $(function () {
+	        $('select[multiple].active.3col').multiselect({
+	            columns: 1,
+	            placeholder: 'Select States',
+	            search: true,
+	            searchOptions: {
+	                'default': 'Search States'
+	            },
+	            selectAll: true
+	        });
+	
+	    });
         $(function () {       
             var totalPages=${totalPage};
             var currentPage = ${pageIndex}  
@@ -314,7 +330,7 @@
                     
             		swal("Good job!", "Thêm sản phẩm thành công!", "success")                       		
                     setTimeout(() => {
-                        window.location.href="${urlProducts}?id="+response.id+"&message=insert_success";
+                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
                     }, 2000);
             		
                 },
@@ -381,7 +397,7 @@
                     
             		swal("Good job!", "Cập nhật thành công!", "success")                       		
                     setTimeout(() => {
-                        window.location.href="${urlProducts}?id="+response.id+"&message=insert_success";
+                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
                     }, 2000);
                 },
                 error: function(response){
@@ -418,7 +434,7 @@
                     
             		swal("Good job!", "Xóa thành công!", "success")                       		
                     setTimeout(() => {
-                        window.location.href="${urlProducts}?message=delete_success";
+                        window.location.href="${urlProducts}&message=delete_success";
                     }, 2000);
                 },
                 error: function(response){
