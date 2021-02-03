@@ -34,10 +34,10 @@ public class ProductController {
 	private ProductRepository productRepository; 
 	
 	@RequestMapping(value = "/admin/product",method = RequestMethod.GET)
-	public ModelAndView listProduct(@RequestParam(name = "pageIndex",defaultValue = "1") int pageIndex,@RequestParam(value = "pageSize",defaultValue = "3") int pageSize) {
+	public ModelAndView listProduct(@RequestParam(name = "pageIndex",defaultValue = "10") int pageIndex,@RequestParam(value = "pageSize",defaultValue = "1") int pageSize) {
 		ModelAndView modelAndView = new ModelAndView("admin/product/listProduct");		
 		
-		Page<ProductEntity> pageData =  productRepository.findAll(new PageRequest(pageIndex-1, 1000));
+		Page<ProductEntity> pageData =  productRepository.findAll(new PageRequest(pageIndex-1, pageSize));
 		List<ProductEntity> lisProductEntities = pageData.getContent();
 		Long totalProduct = pageData.getTotalElements();
 		int totalPage = pageData.getTotalPages();

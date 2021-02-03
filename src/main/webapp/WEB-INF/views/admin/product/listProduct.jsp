@@ -66,7 +66,7 @@
 	                                <input type="checkbox" class="ace" />
 	                                <span class="lbl"></span>
 	                            </label>
-	                             ${pageSize}
+	                         
 	                        </td>
 							
 	                        <td>
@@ -90,7 +90,7 @@
                                         </i>
                                     </a>
 	                                <button class="btn btn-xs btn-info btn-UpdateProduct">
-	                                    <i class="ace-icon fa fa-pencil bigger-120">${itemProduct.id}</i>
+	                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
 	                                </button>
 	                                
 	                                
@@ -117,6 +117,7 @@
         		<ul class="pagination" id="pagination"></ul>
     		</nav>
     		<input type="hidden" name="pageIndex" id="pageIndex">
+    		<input type="hidden" name="pageSize" id="pageIndex">
     		<input type="hidden" id="idUpdate">
         </div>
         </form>
@@ -260,25 +261,27 @@
     </div><!-- PAGE CONTENT ENDS -->
     <script type="text/javascript">
     
-        // $(function () {       
-        //     var totalPages=${totalPage};
-        //     var currentPage = ${pageIndex}   
-        //     window.pagObj = $('#pagination').twbsPagination({
+        $(function () {       
+            var totalPages=${totalPage};
+            var currentPage = ${pageIndex}  
+            var pageSize = ${pageSize}
+            window.pagObj = $('#pagination').twbsPagination({
                 
-        //         totalPages: totalPages,
-        //         visiblePages: 10,  
-        //         startPage: currentPage,        
-        //         onPageClick: function (event, page) { 
-        //             if(currentPage != page){  
-        //                 $("#pagaIndex").val(page);
-        //                 $("#formProduct").submit();        
-        //             }
+                totalPages: totalPages,
+                visiblePages: 10,  
+                startPage: currentPage,        
+                onPageClick: function (event, page) { 
+                    if(currentPage != page){  
+                        $("#pageIndex").val(page);
+                        $("#pageSize").val(pageSize);
+                        $("#formProduct").submit();        
+                    }
                     
-        //         }
-        //     }).on('page', function (event, page) {
+                }
+            }).on('page', function (event, page) {
                 
-        //     });
-        // });
+            });
+        });
         
         
         //Xử lí phần thêm sản phẩm
