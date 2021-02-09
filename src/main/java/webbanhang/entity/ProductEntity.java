@@ -42,6 +42,25 @@ public class ProductEntity  extends BaseEntity {
 	
 	
 	
+	public ProductEntity(String name, String code, String mainImageUrl, String description, Double price,
+			Boolean isShow, String websiteUrl, Set<ProductCategory> productCategorie) {
+		super();
+		this.name = name;
+		this.code = code;
+		this.mainImageUrl = mainImageUrl;
+		this.description = description;
+		this.price = price;
+		this.isShow = isShow;
+		this.websiteUrl = websiteUrl;
+		this.productCategorie = productCategorie;
+	}
+
+	
+	public ProductEntity() {
+		super();
+	}
+
+
 	public String getName() {
 		return name;
 	}

@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Quản lí sản phẩm</title>
 </head>
-<c:url value="/admin/product" var="urlProducts"/>
+<c:url value="/admin/product?pageIndex=1&pageSize=10" var="urlProducts"/>
 <body>
     <div class="main-content">
         <div class="main-content-inner">
@@ -24,7 +24,7 @@
 						<h3 class="header smaller lighter blue">Danh sách sản phẩm</h3>
 
         <div class="clearfix">
-        	<button class="mb-10" id="btn-addProduct">Thêm mới sản phẩm</button>
+        	<button class="btn btn-xs btn-success mb-10" id="btn-addProduct">Thêm mới sản phẩm</button>
             <div class="pull-right tableTools-container"></div>
         </div>
         
@@ -37,6 +37,7 @@
         	
             <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                 <thead>
+                	
                     <tr>
                         <th class="center">
                             <label class="pos-rel">
@@ -58,88 +59,66 @@
                 </thead>
 
                 <tbody>
-                	<c:forEach var="list" items="${listProduct}">
-                    <tr>
-                        <td class="center">
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace" />
-                                <span class="lbl"></span>
-                            </label>
-                             ${pageSize}
-                        </td>
-						
-                        <td>
-                            ${list.code}
-                           
-                        </td>
-                        <td>${list.name}</td>
-                        <td class="hidden-480"><img src=${list.mainImageUrl} alt="" style="width: 50px;height: 50px;"> </td>
-                        <td><%= (new java.util.Date()).toLocaleString() %></td>
-
-                        <td class="hidden-480">
-                           	${list.price }
-                        </td>
-
-                        <td>
-                            <div class="hidden-sm hidden-xs action-buttons">
-                                <a class="blue" href="#">
-                                    <i class="ace-icon fa fa-search-plus bigger-130"></i>
-                                </a>
-
-                                <a class="green" href="#">
-                                    <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                </a>
-
-                                <a class="red" href="#">
-                                    <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                                </a>
-                            </div>
-
-                            <div class="hidden-md hidden-lg">
-                                <div class="inline pos-rel">
-                                    <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                        <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-                                    </button>
-
-                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                        <li>
-                                            <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                                <span class="blue">
-                                                    <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                </span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                                <span class="green">
-                                                    <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                </span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                                <span class="red">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                	<c:forEach var="itemProduct" items="${listProduct}">               		
+	                    <tr>
+	                        <td class="center">
+	                            <label class="pos-rel">
+	                                <input type="checkbox" class="ace" />
+	                                <span class="lbl"></span>
+	                            </label>
+	                         
+	                        </td>
+							
+	                        <td>
+	                            ${itemProduct.code}
+	                           
+	                        </td>
+	                        <td>${itemProduct.name}</td>
+	                        <td class="hidden-480"><img src=${itemProduct.mainImageUrl} alt="" style="width: 50px;height: 50px;"> </td>
+	                        <td><%= (new java.util.Date()).toLocaleString() %></td>
+	
+	                        <td class="hidden-480">
+	                           	${itemProduct.price }
+	                        </td>
+	
+	                        <td>
+	                            <div class="hidden-sm hidden-xs action-buttons">
+	                                
+                                    <a class="btn btn-xs btn-warning ">
+	                                    <i class="ace-icon fa fa-flag bigger-120" >
+                                                
+                                        </i>
+                                    </a>
+	                                <button class="btn btn-xs btn-info btn-UpdateProduct">
+	                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+	                                </button>
+	                                
+	                                
+	                                <button class="btn btn-xs btn-danger btn-DeleteProduct" onclick="deleteProduct(event,${itemProduct.id})">
+	                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+	                                </button>
+	                                <input type="hidden" id="id"  value="${itemProduct.id}" >
+	                            </div>	                            
+	                        </td>
+	                    </tr>
                     </c:forEach>
-                    
+                                 
                 </tbody>
+                <c:set var="listProductJstl" value="${listProduct}"></c:set>
+                
+                <tfoot align="center" style="display:<c:out value="${not empty listProductJstl ?'none':''}" ></c:out>">
+			        <tr>
+			           <td colspan="7">Không có dữ liệu</td>
+			        </tr>
+    			</tfoot>
                 
             </table>
             <nav aria-label="Page navigation" style="float:right">
         		<ul class="pagination" id="pagination"></ul>
     		</nav>
     		<input type="hidden" name="pageIndex" id="pageIndex">
-    		
+    		<input type="hidden" name="pageSize" id="pageSize">
+    		<input type="hidden" id="idUpdate">
         </div>
         </form>
                     </div>
@@ -159,57 +138,136 @@
                     </div>
                 </div>
 
-                <form class="form-horizontal" role="form" id="formAddProduct">              
+                <form class="form-horizontal" role="form" id="formAddProduct" enctype="multipart/form-data">              
                     <div class="modal-body no-padding">
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mã sản phẩm</label>
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-9" name="code" id="code"/>
+                                <input type="text"  placeholder="Mã sản phẩm" class="col-xs-10 col-sm-9" name="code" id="code"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tên sản phẩm </label>
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-9" name="name" id="name"/>
+                                <input type="text"  placeholder="Tên sản phẩm" class="col-xs-10 col-sm-9" name="name" id="name"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Giá sản phẩm </label>
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-9" name="price" id="price"/>
+                                <input type="text"  placeholder="Giá sản phẩm" class="col-xs-10 col-sm-9" name="price" id="price"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Text Field </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Link website </label>
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-9" />
+                                <input type="text"  placeholder="website" class="col-xs-10 col-sm-9" name="websiteUrl" id="websiteUrl"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Text Field </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ảnh sản phẩm </label>
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-9" />
+                                <input type="file"  placeholder="website" class="col-xs-10 col-sm-9" name="file" id="file"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Text Field </label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mô tả </label>
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-9" />
+                                <textarea  class="col-xs-10 col-sm-9" name="description" id="description">
+                                	
+                                </textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Text Field </label>
-                            <div class="col-sm-9">
-                                <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-9" />
-                            </div>
-                        </div>
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Thể loại </label>
+										<div class="col-sm-9" style="width: 300px;">
+											<select name="idCategories" multiple="multiple" class="3col active" >
+												<c:forEach var="itemCategory" items="${listCategory}">
+													<option value="${itemCategory.id}">${itemCategory.name}</option>
+												</c:forEach>
+                                                
+                                            </select>							
+										</div>
+						</div>
                     </div>
                     <div class="modal-footer no-margin-top" style="display: flex;justify-content: space-around;">
                         <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal" >
                             <i class="ace-icon fa fa-times"></i>
                             Close
                         </button>
-                        <button class="btn btn-sm btn-success pull-left"  id="submitProduct" type="submit">
+                        <button class="btn btn-sm btn-success pull-left"  id="submitProduct" >
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- PAGE CONTENT ENDS -->
+    
+    <div id="editModalProduct" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header no-padding">
+                    <div class="table-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <span class="white">&times;</span>
+                        </button>
+                        Results for "Latest Registered Domains
+                    </div>
+                </div>
+
+                <form class="form-horizontal" role="form" id="formEditProduct" enctype="multipart/form-data">              
+                    <div class="modal-body no-padding">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mã sản phẩm</label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="Mã sản phẩm" class="col-xs-10 col-sm-9" name="code" id="code"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tên sản phẩm </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="Tên sản phẩm" class="col-xs-10 col-sm-9" name="name" id="name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Giá sản phẩm </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="Giá sản phẩm" class="col-xs-10 col-sm-9" name="price" id="price"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Link website </label>
+                            <div class="col-sm-9">
+                                <input type="text"  placeholder="website" class="col-xs-10 col-sm-9" name="websiteUrl" id="websiteUrl"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mô tả </label>
+                            <div class="col-sm-9">
+                                <textarea  class="col-xs-10 col-sm-9" name="description" id="description">
+                                	
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Thể loại </label>
+										<div class="col-sm-9" style="width: 300px;">
+											<select name="idCategories" multiple="multiple" class="3col active" >
+												<c:forEach var="itemCategory" items="${listCategory}">
+													<option value="${itemCategory.id}">${itemCategory.name}</option>
+												</c:forEach>
+                                                
+                                            </select>							
+										</div>
+						</div>
+                    </div>
+                    <div class="modal-footer no-margin-top" style="display: flex;justify-content: space-around;">
+                        <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal" >
+                            <i class="ace-icon fa fa-times"></i>
+                            Close
+                        </button>
+                        <button class="btn btn-sm btn-success pull-left" id="submitEditProduct" >
                             Submit
                         </button>
                     </div>
@@ -218,9 +276,22 @@
         </div><!-- /.modal-dialog -->
     </div><!-- PAGE CONTENT ENDS -->
     <script type="text/javascript">
+	    $(function () {
+	        $('select[multiple].active.3col').multiselect({
+	            columns: 1,
+	            placeholder: 'Thể loại',
+	            search: true,
+	            searchOptions: {
+	                'default': 'Search States'
+	            },
+	            selectAll: true
+	        });
+	
+	    });
         $(function () {       
             var totalPages=${totalPage};
-            var currentPage = ${pageIndex}   
+            var currentPage = ${pageIndex}  
+            var pageSize = ${pageSize}
             window.pagObj = $('#pagination').twbsPagination({
                 
                 totalPages: totalPages,
@@ -228,7 +299,8 @@
                 startPage: currentPage,        
                 onPageClick: function (event, page) { 
                     if(currentPage != page){  
-                        $("#pagaIndex").val(page);
+                        $("#pageIndex").val(page);
+                        $("#pageSize").val(pageSize);
                         $("#formProduct").submit();        
                     }
                     
@@ -238,30 +310,224 @@
             });
         });
         
+        
         //Xử lí phần thêm sản phẩm
         $("#btn-addProduct").click(function (e) { 
             $('#modalProduct').modal();
         });
         
-        $("#formAddProduct").submit(function (e) { 
+        $("#submitProduct").click(function (e) { 
             e.preventDefault()
+             debugger;
             var data ={};
             var formData = $('#formAddProduct').serializeArray();
-           	console.log(formData);
+          	var categoriesId =[];
             $.each(formData, function (index, value) { 
-            	data[""+value.name+""]= value.value;
+            	if (value.name == "idCategories") {
+            		categoriesId.push(value.value);
+				}else{
+					data[""+value.name+""]= value.value;
+				}
+            	
             });
-			$.ajax({
-                type: "post",
-                url: "http://localhost:8080/webbanhang/api/product/addProduct",
+            data['idCategories']=categoriesId;
+            
+            console.log(test);
+            console.log(data);
+           
+			addProduct(data);
+        });
+
+
+        // function addProduct(data){
+        //     var dataClient = data;
+        //     var updateJsonProduct = $.ajax({
+        //     	type: "POST",
+        //         contentType: "application/json",
+        //         url: "http://localhost:8080/webbanhang/api/product",
+        //         data: JSON.stringify(data),
+        //         dataType: "json",         
+            
+        //         success: function (response) {
+        //     		console.log(response);    
+                    
+        //     		swal("Good job!", "Thêm sản phẩm thành công!", "success")                       		
+        //             setTimeout(() => {
+        //                 window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
+        //             }, 2000);
+            		
+        //         },
+        //         error: function(response){
+        //             console.log("sadjiasj");
+        //             swal("Thất bại!", "Thêm sản phẩm thất bại!", "error")
+        //         }
+        //     });
+        // }
+
+        function addProduct(data){
+            var updateJsonProduct = $.ajax({
+            	type: "POST",
+                contentType: "application/json",
+                url: "http://localhost:8080/webbanhang/api/product",
                 data: JSON.stringify(data),
-                dataType: "json",
+                dataType: "json",         
+            
                 success: function (response) {
-            		console.log(response);
+            		uploadFileWhenAdd(response.id);
+                },
+                error: function(response){
+                    console.log("sadjiasj");
+                    swal("Thất bại!", "Thêm sản phẩm thất bại!", "error")
                 }
             });
+        }
+
+        function uploadFileWhenAdd(productId){
+            var formData = new FormData();
+            var productId = productId;
+            var files = document.getElementById("file").files;
+            if (files.length === 0) {
+				return false;
+			}
+            file = document.getElementById("file").files[0];            
+            formData.append("file", file);
+            formData.append("productId",productId);
+            $.ajax({
+                type: "POST",
+                url: "url",
+                data: "data",
+                dataType: "dataType",
+                success: function (response) {
+
+                },
+                error:function(res){
+
+                }
+            });
+        }
+
+       $(".btn-UpdateProduct").on("click", function (e) {
+           e.preventDefault();
+           var id = $(this).parent().find("#id").val();
+           findProductById(id);
+           console.log("áhduah",findProductById(id));
+       });
+
+	    function findProductById(id){   
+            var productObj; 
+	 	   $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/webbanhang/api/product/"+id,
+                // data: "JSON",
+                // dataType: "dataType",
+                success: function (product) {
+                   $('#editModalProduct').modal();
+                   $("#editModalProduct #code").val(product.code);
+                   $("#editModalProduct #name").val(product.name);
+                   $("#editModalProduct #price").val(product.price); 
+                   $("#editModalProduct #description").val(product.description);
+                   $("#editModalProduct #websiteUrl").val(product.websiteUrl);
+                   
+                   $("#idUpdate").val(product.id);            			
+                }
+            });
+            
+	    }
+        
+        $("#submitEditProduct").click(function (e) { 
+            e.preventDefault();
+    
+            var data ={};
+            var formData = $('#formEditProduct').serializeArray();
+            var categoriesId =[];
+           	//console.log(formData);
+             $.each(formData, function (index, value) { 
+            	if (value.name == "idCategories") {
+            		categoriesId.push(value.value);
+				}else{
+					data[""+value.name+""]= value.value;
+				}
+            	
+            });
+            data['idCategories']=categoriesId;
+			editProduct(data);
+			debugger;
         });
         
+	    function editProduct(data){
+	    	id = $("#idUpdate").val(); 
+	    	$.ajax({    
+                contentType: "application/json",           
+                url: "http://localhost:8080/webbanhang/api/product/update/"+id,
+                type: "PUT",
+                data:JSON.stringify(data),
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);    
+                    
+            		swal("Good job!", "Cập nhật thành công!", "success")                       		
+                    setTimeout(() => {
+                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
+                    }, 2000);
+                },
+                error: function(response){
+                    console.log("sadjiasj");
+                    swal("Thất bại!", "Cập nhật thất bại!", "error")
+                }
+            });
+	    }
+        function deleteProduct(event,id){
+        	event.preventDefault();
+        	swal({
+        		  title: "Bạn có chắc muốn xóa?",
+        		  text: "",
+        		  type: "warning",
+        		  showCancelButton: true,
+        		  confirmButtonClass: "btn-danger",
+        		  confirmButtonText: "Yes",
+        		  cancelButtonText: "No",
+        		  closeOnConfirm: false,
+        		  closeOnCancel: false
+        		}).then(function(isConfirm){
+                    if(isConfirm.value){
+                        deleteById(id);
+                    }
+                });
+                
+        }
+        function deleteById(id){
+            $.ajax({
+                type: "DELETE",
+                url: "http://localhost:8080/webbanhang/api/product/delete/"+id,
+                success: function (response) {
+                    console.log(response);    
+                    
+            		swal("Good job!", "Xóa thành công!", "success")                       		
+                    setTimeout(() => {
+                        window.location.href="${urlProducts}&message=delete_success";
+                    }, 2000);
+                },
+                error: function(response){
+                    console.log("sadjiasj");
+                    swal("Thất bại!", "Xóa thất bại!", "error")
+                }
+            });
+        }
+	    // $(".btn-DeleteProduct").click(function (e) { 
+        //     e.preventDefault();
+        //     var id = $(this).parent().find("#id").val();
+        //     deleteProduct();
+        //     // $.ajax({
+        //     //     type: "DELETE",
+        //     //     url: "url",
+        //     //     data: "data",
+        //     //     dataType: "dataType",
+        //     //     success: function (response) {
+                    
+        //     //     }
+        //     // });
+            
+        // });
     </script>
     
 </body>

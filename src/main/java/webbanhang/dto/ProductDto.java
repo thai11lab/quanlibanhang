@@ -1,11 +1,15 @@
 package webbanhang.dto;
 
 
+import java.util.Set;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import webbanhang.entity.ProductEntity;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class ProductDto extends BaseDto{
 	
 	private String name;
@@ -25,7 +29,11 @@ public class ProductDto extends BaseDto{
 	private Boolean isShow;
 	
 	private String websiteUrl;
-
+	
+	private Long idCategories [] ;
+	
+	
+	
 	public ProductDto(ProductEntity entity) {
 		if(entity != null) {
 			this.id=entity.getId();
@@ -36,8 +44,41 @@ public class ProductDto extends BaseDto{
 			this.price = entity.getPrice();
 			this.isShow = entity.getIsShow();
 			this.websiteUrl = entity.getWebsiteUrl();
+			
+			if (entity.getProductCategorie() != null ) {
+					
+			}
 		}
 	}
+	
+	
+
+
+
+	
+
+
+	public ProductDto(String name, String code, String mainImageUrl, String description, Double price, Boolean isShow,
+			String websiteUrl, Long[] idCategories) {
+		super();
+		this.name = name;
+		this.code = code;
+		this.mainImageUrl = mainImageUrl;
+		this.description = description;
+		this.price = price;
+		this.isShow = isShow;
+		this.websiteUrl = websiteUrl;
+		this.idCategories = idCategories;
+	
+	}
+
+
+
+
+
+
+
+
 	public String getName() {
 		return name;
 	}
@@ -97,5 +138,11 @@ public class ProductDto extends BaseDto{
 	public ProductDto() {
 		super();
 	}
-	
+	public Long[] getIdCategories() {
+		return idCategories;
+	}
+	public void setIdCategories(Long[] idCategories) {
+		this.idCategories = idCategories;
+	}
+
 }

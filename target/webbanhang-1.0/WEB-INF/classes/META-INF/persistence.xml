@@ -3,6 +3,9 @@
     <persistence-unit name="persistence-data">
         <class>webbanhang.entity.RoleEntity</class>
         <class>webbanhang.entity.UserEntity</class>
+        <class>webbanhang.entity.ProductEntity</class>
+        <class>webbanhang.entity.CategoryEntity</class>
+        <class>webbanhang.entity.ProductCategory</class>
     </persistence-unit>
 </persistence>
 

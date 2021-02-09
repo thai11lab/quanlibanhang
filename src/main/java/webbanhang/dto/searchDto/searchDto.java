@@ -1,18 +1,13 @@
 package webbanhang.dto.searchDto;
 
 public class searchDto {
-	private Long id;
+
 	private int pageIndex;
 	private int pageSize;
 	
 	private String keyword;
 	private String orderBy;
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	public int getPageIndex() {
 		return pageIndex;
 	}

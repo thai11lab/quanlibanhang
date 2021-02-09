@@ -7,6 +7,7 @@ import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import webbanhang.dto.ProductDto;
+import webbanhang.dto.searchDto.searchDto;
 import webbanhang.entity.CategoryEntity;
 import webbanhang.entity.ProductEntity;
 import webbanhang.repository.CategoryRepository;
@@ -59,6 +61,32 @@ public class ProductController {
 		
 	}
 	
+	@SuppressWarnings("null")
+	@RequestMapping(value = "/admin/product",method = RequestMethod.POST)
+	public ModelAndView listProductBySearch(@RequestParam(name = "pageIndex",defaultValue = "10") int pageIndex,@RequestParam(value = "pageSize",defaultValue = "1") int pageSize,@RequestBody searchDto dto) {
+		ModelAndView modelAndView = new ModelAndView("admin/product/listProduct");	
+		Page<ProductEntity> pageData = new PageImpl<ProductEntity>(null);
+		if (dto.getKeyword() == null && dto.getKeyword().equals("")) {
+			pageData =  productRepository.findAll(new PageRequest(pageIndex-1, pageSize));
+		}else {
+			pageData = productRepository.findBySearch(dto);
+		}
+		
+		List<ProductEntity> lisProductEntities = pageData.getContent();
+		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
+		Long totalProduct = pageData.getTotalElements();
+		int totalPage = pageData.getTotalPages();
+		modelAndView.addObject("listCategory",categoryEntities);
+		modelAndView.addObject("pageIndex",pageIndex);
+		modelAndView.addObject("pageSize",pageSize);
+		modelAndView.addObject("totalPage", totalPage);
+		modelAndView.addObject("listProduct", lisProductEntities);
+		
+		modelAndView.addObject("totalProduct", totalProduct);
+		
+		return modelAndView;
+		
+	}
 	
 	
 	

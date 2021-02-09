@@ -23,9 +23,22 @@
                     <div class="col-xs-12">
 						<h3 class="header smaller lighter blue">Danh sách sản phẩm</h3>
 
-        <div class="clearfix">
-        	<button class="btn btn-xs btn-success mb-10" id="btn-addProduct">Thêm mới sản phẩm</button>
-            <div class="pull-right tableTools-container"></div>
+        <div class="clearfix" style="display: flex;">
+        	<div style="display: flex;flex-grow: 1">
+        		<div class="mb-10">
+        			<button class="btn btn-xs btn-success mb-10" id="btn-addProduct">Thêm mới sản phẩm</button>
+        		</div>
+        		<div>
+        			<input type="text" class="">
+        		</div>
+	        	<div class="mb-10">	        		
+	        		<button class="btn btn-xs btn-success mb-10">Tìm kiếm</button>
+	        	</div>
+        	</div>
+            <div class="pull-right tableTools-container" style="">
+            	<button class="btn btn-xs btn-success mb-10">Import Excell</button>
+            	<button class="btn btn-xs btn-success mb-10">Export Excell</button>
+            </div>
         </div>
         
 
@@ -74,7 +87,7 @@
 	                           
 	                        </td>
 	                        <td>${itemProduct.name}</td>
-	                        <td class="hidden-480"><img src=${itemProduct.mainImageUrl} alt="" style="width: 50px;height: 50px;"> </td>
+	                       	<td class="hidden-480"><img src='<c:url value="/template/${itemProduct.mainImageUrl}"/>' alt="" style="width: 50px;height: 50px;"> </td>
 	                        <td><%= (new java.util.Date()).toLocaleString() %></td>
 	
 	                        <td class="hidden-480">
@@ -138,7 +151,7 @@
                     </div>
                 </div>
 
-                <form class="form-horizontal" role="form" id="formAddProduct">              
+                <form class="form-horizontal" role="form" id="formAddProduct" enctype="multipart/form-data">              
                     <div class="modal-body no-padding">
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mã sản phẩm</label>
@@ -165,6 +178,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ảnh sản phẩm </label>
+                            <div class="col-sm-9">
+                                <input type="file"  placeholder="website" class="col-xs-10 col-sm-9" name="file" id="file"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mô tả </label>
                             <div class="col-sm-9">
                                 <textarea  class="col-xs-10 col-sm-9" name="description" id="description">
@@ -173,9 +192,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-										<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Select2 </label>
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Thể loại </label>
 										<div class="col-sm-9" style="width: 300px;">
-											<select name="basic[]" multiple="multiple" class="3col active">
+											<select name="idCategories" multiple="multiple" class="3col active" >
 												<c:forEach var="itemCategory" items="${listCategory}">
 													<option value="${itemCategory.id}">${itemCategory.name}</option>
 												</c:forEach>
@@ -245,11 +264,16 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Hình ảnh </label>
-                            <div class="col-sm-9">
-                                <input id="mainImageUrl" name="mainImageUrl" type="file" />
-                            </div>
-                        </div>
+										<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Thể loại </label>
+										<div class="col-sm-9" style="width: 300px;">
+											<select name="idCategories" multiple="multiple" class="3col active" >
+												<c:forEach var="itemCategory" items="${listCategory}">
+													<option value="${itemCategory.id}">${itemCategory.name}</option>
+												</c:forEach>
+                                                
+                                            </select>							
+										</div>
+						</div>
                     </div>
                     <div class="modal-footer no-margin-top" style="display: flex;justify-content: space-around;">
                         <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal" >
@@ -268,7 +292,7 @@
 	    $(function () {
 	        $('select[multiple].active.3col').multiselect({
 	            columns: 1,
-	            placeholder: 'Select States',
+	            placeholder: 'Thể loại',
 	            search: true,
 	            searchOptions: {
 	                'default': 'Search States'
@@ -307,36 +331,95 @@
         
         $("#submitProduct").click(function (e) { 
             e.preventDefault()
+             debugger;
             var data ={};
             var formData = $('#formAddProduct').serializeArray();
-           	console.log(formData);
+          	var categoriesId =[];
             $.each(formData, function (index, value) { 
-            	data[""+value.name+""]= value.value;
+            	if (value.name == "idCategories") {
+            		categoriesId.push(value.value);
+				}else{
+					data[""+value.name+""]= value.value;
+				}
+            	
             });
+            data['idCategories']=categoriesId;
+            
+            
+           
 			addProduct(data);
         });
 
 
+        // function addProduct(data){
+        //     var dataClient = data;
+        //     var updateJsonProduct = $.ajax({
+        //     	type: "POST",
+        //         contentType: "application/json",
+        //         url: "http://localhost:8080/webbanhang/api/product",
+        //         data: JSON.stringify(data),
+        //         dataType: "json",         
+            
+        //         success: function (response) {
+        //     		console.log(response);    
+                    
+        //     		swal("Good job!", "Thêm sản phẩm thành công!", "success")                       		
+        //             setTimeout(() => {
+        //                 window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
+        //             }, 2000);
+            		
+        //         },
+        //         error: function(response){
+        //             console.log("sadjiasj");
+        //             swal("Thất bại!", "Thêm sản phẩm thất bại!", "error")
+        //         }
+        //     });
+        // }
+
         function addProduct(data){
-            $.ajax({
-                type: "POST",
+            var updateJsonProduct = $.ajax({
+            	type: "POST",
                 contentType: "application/json",
                 url: "http://localhost:8080/webbanhang/api/product",
                 data: JSON.stringify(data),
-                dataType: "json",
-                
+                dataType: "json",         
+            
                 success: function (response) {
-            		console.log(response);    
-                    
-            		swal("Good job!", "Thêm sản phẩm thành công!", "success")                       		
-                    setTimeout(() => {
-                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
-                    }, 2000);
-            		
+            		uploadFileWhenAdd(response.id);
                 },
                 error: function(response){
                     console.log("sadjiasj");
                     swal("Thất bại!", "Thêm sản phẩm thất bại!", "error")
+                }
+            });
+        }
+
+        function uploadFileWhenAdd(productId){
+            var formData = new FormData();
+            var productId = productId;
+            var files = document.getElementById("file").files;
+            if (files.length === 0) {
+				return false;
+			}
+            file = document.getElementById("file").files[0];            
+            formData.append("file", file);
+            formData.append("productId",productId);
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "http://localhost:8080/webbanhang/api/upload",
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (response) {
+             		swal("Good job!", "Thêm sản phẩm thành công!", "success")                       		
+             		setTimeout(() => {
+                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
+                    }, 2000);             
+                },
+                error:function(res){
+					console.log(res);
                 }
             });
         }
@@ -374,12 +457,17 @@
     
             var data ={};
             var formData = $('#formEditProduct').serializeArray();
+            var categoriesId =[];
            	//console.log(formData);
-            $.each(formData, function (index, value) { 
-            	data[""+value.name+""]= value.value;
+             $.each(formData, function (index, value) { 
+            	if (value.name == "idCategories") {
+            		categoriesId.push(value.value);
+				}else{
+					data[""+value.name+""]= value.value;
+				}
+            	
             });
-            
-            console.log(data);
+            data['idCategories']=categoriesId;
 			editProduct(data);
 			debugger;
         });
