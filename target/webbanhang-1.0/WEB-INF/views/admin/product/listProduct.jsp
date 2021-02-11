@@ -23,9 +23,22 @@
                     <div class="col-xs-12">
 						<h3 class="header smaller lighter blue">Danh sách sản phẩm</h3>
 
-        <div class="clearfix">
-        	<button class="btn btn-xs btn-success mb-10" id="btn-addProduct">Thêm mới sản phẩm</button>
-            <div class="pull-right tableTools-container"></div>
+        <div class="clearfix" style="display: flex;">
+        	<div style="display: flex;flex-grow: 1">
+        		<div class="mb-10">
+        			<button class="btn btn-xs btn-success mb-10" id="btn-addProduct">Thêm mới sản phẩm</button>
+        		</div>
+        		<div>
+        			<input type="text" class="">
+        		</div>
+	        	<div class="mb-10">	        		
+	        		<button class="btn btn-xs btn-success mb-10">Tìm kiếm</button>
+	        	</div>
+        	</div>
+            <div class="pull-right tableTools-container" style="">
+            	<button class="btn btn-xs btn-success mb-10">Import Excell</button>
+            	<button class="btn btn-xs btn-success mb-10">Export Excell</button>
+            </div>
         </div>
         
 
@@ -36,15 +49,8 @@
         <div>
         	
             <table id="dynamic-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                	
-                    <tr>
-                        <th class="center">
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace" />
-                                <span class="lbl"></span>
-                            </label>
-                        </th>
+                <thead>             	
+                    <tr>                       
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th class="hidden-480">Hình ảnh của sản phẩm</th>
@@ -60,21 +66,13 @@
 
                 <tbody>
                 	<c:forEach var="itemProduct" items="${listProduct}">               		
-	                    <tr>
-	                        <td class="center">
-	                            <label class="pos-rel">
-	                                <input type="checkbox" class="ace" />
-	                                <span class="lbl"></span>
-	                            </label>
-	                         
-	                        </td>
-							
+	                    <tr>							
 	                        <td>
 	                            ${itemProduct.code}
 	                           
 	                        </td>
 	                        <td>${itemProduct.name}</td>
-	                        <td class="hidden-480"><img src=${itemProduct.mainImageUrl} alt="" style="width: 50px;height: 50px;"> </td>
+	                       	<td class="hidden-480"><img src='<c:url value="/template/${itemProduct.mainImageUrl}"/>' alt="" style="width: 50px;height: 50px;"> </td>
 	                        <td><%= (new java.util.Date()).toLocaleString() %></td>
 	
 	                        <td class="hidden-480">
@@ -332,8 +330,7 @@
             });
             data['idCategories']=categoriesId;
             
-            console.log(test);
-            console.log(data);
+            
            
 			addProduct(data);
         });
@@ -394,14 +391,20 @@
             formData.append("productId",productId);
             $.ajax({
                 type: "POST",
-                url: "url",
-                data: "data",
-                dataType: "dataType",
+                enctype: 'multipart/form-data',
+                url: "http://localhost:8080/webbanhang/api/upload",
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
                 success: function (response) {
-
+             		swal("Good job!", "Thêm sản phẩm thành công!", "success")                       		
+             		setTimeout(() => {
+                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
+                    }, 2000);             
                 },
                 error:function(res){
-
+					console.log(res);
                 }
             });
         }

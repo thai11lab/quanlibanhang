@@ -2,25 +2,22 @@ package webbanhang.controller.admin;
 
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Map;
 
-import javax.xml.ws.Response;
-
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import webbanhang.dto.ProductDto;
+import webbanhang.dto.searchDto.ProductSearchDto;
 import webbanhang.dto.searchDto.searchDto;
 import webbanhang.entity.CategoryEntity;
 import webbanhang.entity.ProductEntity;
@@ -40,45 +37,44 @@ public class ProductController {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
-	@RequestMapping(value = "/admin/product",method = RequestMethod.GET)
-	public ModelAndView listProduct(@RequestParam(name = "pageIndex",defaultValue = "10") int pageIndex,@RequestParam(value = "pageSize",defaultValue = "1") int pageSize) {
-		ModelAndView modelAndView = new ModelAndView("admin/product/listProduct");		
-		
-		Page<ProductEntity> pageData =  productRepository.findAll(new PageRequest(pageIndex-1, pageSize));
-		List<ProductEntity> lisProductEntities = pageData.getContent();
-		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
-		Long totalProduct = pageData.getTotalElements();
-		int totalPage = pageData.getTotalPages();
-		modelAndView.addObject("listCategory",categoryEntities);
-		modelAndView.addObject("pageIndex",pageIndex);
-		modelAndView.addObject("pageSize",pageSize);
-		modelAndView.addObject("totalPage", totalPage);
-		modelAndView.addObject("listProduct", lisProductEntities);
-		
-		modelAndView.addObject("totalProduct", totalProduct);
-		
-		return modelAndView;
-		
-	}
+//	@RequestMapping(value = "/admin/product",method = RequestMethod.GET)
+//	public ModelAndView listProduct(@RequestParam(name = "pageIndex",defaultValue = "1") int pageIndex,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize) {
+//		ModelAndView modelAndView = new ModelAndView("admin/product/listProduct");		
+//		
+//		Page<ProductEntity> pageData =  productRepository.findAll(new PageRequest(pageIndex-1, pageSize));
+//		List<ProductEntity> lisProductEntities = pageData.getContent();
+//		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
+//		Long totalProduct = pageData.getTotalElements();
+//		int totalPage = pageData.getTotalPages();
+//		modelAndView.addObject("listCategory",categoryEntities);
+//		modelAndView.addObject("pageIndex",pageIndex);
+//		modelAndView.addObject("pageSize",pageSize);
+//		modelAndView.addObject("totalPage", totalPage);
+//		modelAndView.addObject("listProduct", lisProductEntities);
+//		
+//		modelAndView.addObject("totalProduct", totalProduct);
+//		
+//		return modelAndView;
+//		
+//	}
 	
 	@SuppressWarnings("null")
-	@RequestMapping(value = "/admin/product",method = RequestMethod.POST)
-	public ModelAndView listProductBySearch(@RequestParam(name = "pageIndex",defaultValue = "10") int pageIndex,@RequestParam(value = "pageSize",defaultValue = "1") int pageSize,@RequestBody searchDto dto) {
-		ModelAndView modelAndView = new ModelAndView("admin/product/listProduct");	
-		Page<ProductEntity> pageData = new PageImpl<ProductEntity>(null);
-		if (dto.getKeyword() == null && dto.getKeyword().equals("")) {
-			pageData =  productRepository.findAll(new PageRequest(pageIndex-1, pageSize));
-		}else {
-			pageData = productRepository.findBySearch(dto);
+	@RequestMapping(value = "/admin/product",method = RequestMethod.GET)	
+	public ModelAndView listProductBySearch(@ModelAttribute("model") ProductSearchDto dto) {
+		ModelAndView modelAndView = new ModelAndView("admin/product/listProduct");
+		if (dto.getPageIndex() == 0 && dto.getPageSize()==0) {
+			dto.setPageIndex(1);
+			dto.setPageSize(10);
 		}
+		Page<ProductEntity> pageData = productRepository.findBySearch(dto);
 		
 		List<ProductEntity> lisProductEntities = pageData.getContent();
 		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
 		Long totalProduct = pageData.getTotalElements();
 		int totalPage = pageData.getTotalPages();
 		modelAndView.addObject("listCategory",categoryEntities);
-		modelAndView.addObject("pageIndex",pageIndex);
-		modelAndView.addObject("pageSize",pageSize);
+		modelAndView.addObject("pageIndex",dto.getPageIndex());
+		modelAndView.addObject("pageSize",dto.getPageSize());
 		modelAndView.addObject("totalPage", totalPage);
 		modelAndView.addObject("listProduct", lisProductEntities);
 		

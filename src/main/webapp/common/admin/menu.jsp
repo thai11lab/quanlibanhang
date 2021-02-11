@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url value="/admin/product?pageIndex=1&pageSize=10" var="urlProducts"/>
+<c:url value="/admin/product" var="urlProducts"/>
 <div id="sidebar" class="sidebar                  responsive">
     <script type="text/javascript">
         try {

@@ -30,6 +30,7 @@ webbanhang\controller\admin\ProductController.class
 webbanhang\service\impl\UploadFileServiceImpl.class
 webbanhang\entity\CategoryEntity.class
 webbanhang\utils\SecurityUtils.class
+webbanhang\repository\custom\ProductRepositoryCustom.class
 webbanhang\dto\CategoryDto.class
 webbanhang\repository\UserRepository.class
 webbanhang\dto\searchDto\searchDto.class

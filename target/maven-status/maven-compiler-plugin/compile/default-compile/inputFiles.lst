@@ -9,6 +9,7 @@ D:\workspace\web-banhang\webbanhang\src\main\java\webbanhang\dto\BaseDto.java
 D:\workspace\web-banhang\webbanhang\src\main\java\webbanhang\repository\UserRepository.java
 D:\workspace\web-banhang\webbanhang\src\main\java\webbanhang\service\impl\UploadFileServiceImpl.java
 D:\workspace\web-banhang\webbanhang\src\main\java\webbanhang\dto\ProductCategoryDto.java
+D:\workspace\web-banhang\webbanhang\src\main\java\webbanhang\repository\custom\ProductRepositoryCustom.java
 D:\workspace\web-banhang\webbanhang\src\main\java\webbanhang\repository\impl\ProductRepositoryImpl.java
 D:\workspace\web-banhang\webbanhang\src\main\java\webbanhang\entity\BaseEntity.java
 D:\workspace\web-banhang\webbanhang\src\main\java\webbanhang\repository\ProductRepository.java

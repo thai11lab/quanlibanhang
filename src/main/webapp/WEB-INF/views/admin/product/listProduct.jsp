@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Quản lí sản phẩm</title>
 </head>
-<c:url value="/admin/product?pageIndex=1&pageSize=10" var="urlProducts"/>
+<c:url value="/admin/product" var="urlProducts"/>
 <body>
     <div class="main-content">
         <div class="main-content-inner">
@@ -28,12 +28,7 @@
         		<div class="mb-10">
         			<button class="btn btn-xs btn-success mb-10" id="btn-addProduct">Thêm mới sản phẩm</button>
         		</div>
-        		<div>
-        			<input type="text" class="">
-        		</div>
-	        	<div class="mb-10">	        		
-	        		<button class="btn btn-xs btn-success mb-10">Tìm kiếm</button>
-	        	</div>
+        		    		
         	</div>
             <div class="pull-right tableTools-container" style="">
             	<button class="btn btn-xs btn-success mb-10">Import Excell</button>
@@ -41,23 +36,22 @@
             </div>
         </div>
         
-
+		
         <!-- div.table-responsive -->
 
         <!-- div.dataTables_borderWrap -->
-        <form action="${urlProducts}" method="get" id="formProduct" >
+        <form:form action="${urlProducts}" role="form" id="formProduct" modelAttribute="model" method="get">
         <div>
-        	
+        	<div style="margin-bottom: 10px;">
+        		<div style="width: 100%;display: flex;">
+	        		<input type="text" class="" name="keyword" style="width: 100%">
+	        		<button class="btn btn-xs btn-success mb-10" type="submit" style="height:35px">Tìm kiếm</button>
+	       		</div>     
+        	</div>
+        	   	
             <table id="dynamic-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                	
-                    <tr>
-                        <th class="center">
-                            <label class="pos-rel">
-                                <input type="checkbox" class="ace" />
-                                <span class="lbl"></span>
-                            </label>
-                        </th>
+                <thead>             	
+                    <tr>                       
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th class="hidden-480">Hình ảnh của sản phẩm</th>
@@ -73,15 +67,7 @@
 
                 <tbody>
                 	<c:forEach var="itemProduct" items="${listProduct}">               		
-	                    <tr>
-	                        <td class="center">
-	                            <label class="pos-rel">
-	                                <input type="checkbox" class="ace" />
-	                                <span class="lbl"></span>
-	                            </label>
-	                         
-	                        </td>
-							
+	                    <tr>							
 	                        <td>
 	                            ${itemProduct.code}
 	                           
@@ -102,15 +88,15 @@
                                                 
                                         </i>
                                     </a>
-	                                <button class="btn btn-xs btn-info btn-UpdateProduct">
+	                                <button class="btn btn-xs btn-info btn-UpdateProduct" value="">
 	                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
 	                                </button>
-	                                
+	                                <input type="hidden" id="id"  value="${itemProduct.id}" >
 	                                
 	                                <button class="btn btn-xs btn-danger btn-DeleteProduct" onclick="deleteProduct(event,${itemProduct.id})">
 	                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
 	                                </button>
-	                                <input type="hidden" id="id"  value="${itemProduct.id}" >
+	                                
 	                            </div>	                            
 	                        </td>
 	                    </tr>
@@ -129,11 +115,12 @@
             <nav aria-label="Page navigation" style="float:right">
         		<ul class="pagination" id="pagination"></ul>
     		</nav>
-    		<input type="hidden" name="pageIndex" id="pageIndex">
-    		<input type="hidden" name="pageSize" id="pageSize">
-    		<input type="hidden" id="idUpdate">
+    		<input type="hidden" name="pageIndex" id="pageIndex" value="1">
+    		<input type="hidden" name="pageSize" id="pageSize" value="10">
+    		
         </div>
-        </form>
+        </form:form>
+        <input type="hidden" id="idUpdate">
                     </div>
                 </div>
             </div>
@@ -415,7 +402,7 @@
                 success: function (response) {
              		swal("Good job!", "Thêm sản phẩm thành công!", "success")                       		
              		setTimeout(() => {
-                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
+                        window.location.href="${urlProducts}";
                     }, 2000);             
                 },
                 error:function(res){
@@ -485,7 +472,7 @@
                     
             		swal("Good job!", "Cập nhật thành công!", "success")                       		
                     setTimeout(() => {
-                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
+                        window.location.href="${urlProducts}";
                     }, 2000);
                 },
                 error: function(response){
@@ -522,7 +509,7 @@
                     
             		swal("Good job!", "Xóa thành công!", "success")                       		
                     setTimeout(() => {
-                        window.location.href="${urlProducts}&message=delete_success";
+                        window.location.href="${urlProducts}";
                     }, 2000);
                 },
                 error: function(response){

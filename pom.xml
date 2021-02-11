@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-  		<servlet.api.version>3.1.0</servlet.api.version>
+		<servlet.api.version>3.1.0</servlet.api.version>
 		<springframework.version>4.3.13.RELEASE</springframework.version>
 		<springsecurity.version>3.2.8.RELEASE</springsecurity.version>
 		<jsp.api.version>2.3.1</jsp.api.version>
@@ -18,7 +18,7 @@
 		<mysql.version>8.0.19</mysql.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -72,12 +72,12 @@
 		</dependency>
 
 		<!-- jstl -->
-  		<dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
-		
+
 		<!-- jsp api -->
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
@@ -199,6 +199,12 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.7</version>
 		</dependency>
 	</dependencies>
 
