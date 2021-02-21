@@ -1,65 +1,60 @@
 package webbanhang.dto;
 
-
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import webbanhang.entity.ProductCategory;
 import webbanhang.entity.ProductEntity;
 
+public class ProductDto extends BaseDto {
 
-public class ProductDto extends BaseDto{
-	
 	private String name;
-	
-	
+
 	private String code;
-	
 
 	private String mainImageUrl;
 
 	private String description;
-	
-	
+
 	private Double price;
 
-	
 	private Boolean isShow;
-	
+
 	private String websiteUrl;
-	
-	private Long idCategories [] ;
-	
-	
-	
+
+	private Long idCategories[];
+
+	private Set<CategoryDto> categoryDtos;
+
+	private int totalProduct;
+
 	public ProductDto(ProductEntity entity) {
-		if(entity != null) {
-			this.id=entity.getId();
+		if (entity != null) {
+			this.id = entity.getId();
 			this.code = entity.getCode();
 			this.name = entity.getName();
-			this.mainImageUrl= entity.getMainImageUrl();
-			this.description =entity.getDescription();
+			this.mainImageUrl = entity.getMainImageUrl();
+			this.description = entity.getDescription();
 			this.price = entity.getPrice();
 			this.isShow = entity.getIsShow();
 			this.websiteUrl = entity.getWebsiteUrl();
-			
-			if (entity.getProductCategorie() != null ) {
-					
+			this.totalProduct = entity.getTotalProduct();
+			if (entity.getProductCategorie() != null) {
+				this.categoryDtos = new HashSet<CategoryDto>();
+				for (ProductCategory productCategory : entity.getProductCategorie()) {
+					CategoryDto categoryDto = new CategoryDto(productCategory.getCategoryEntity());
+					categoryDtos.add(categoryDto);
+				}
 			}
 		}
 	}
-	
-	
-
-
-
-	
-
 
 	public ProductDto(String name, String code, String mainImageUrl, String description, Double price, Boolean isShow,
-			String websiteUrl, Long[] idCategories) {
+			String websiteUrl, Long[] idCategories,int totalProduct) {
 		super();
 		this.name = name;
 		this.code = code;
@@ -69,15 +64,8 @@ public class ProductDto extends BaseDto{
 		this.isShow = isShow;
 		this.websiteUrl = websiteUrl;
 		this.idCategories = idCategories;
-	
+		this.totalProduct = totalProduct;
 	}
-
-
-
-
-
-
-
 
 	public String getName() {
 		return name;
@@ -133,16 +121,34 @@ public class ProductDto extends BaseDto{
 
 	public void setWebsiteUrl(String websiteUrl) {
 		this.websiteUrl = websiteUrl;
-	} 
-	
+	}
+
 	public ProductDto() {
 		super();
 	}
+
 	public Long[] getIdCategories() {
 		return idCategories;
 	}
+
 	public void setIdCategories(Long[] idCategories) {
 		this.idCategories = idCategories;
 	}
 
+	public Set<CategoryDto> getCategoryDtos() {
+		return categoryDtos;
+	}
+
+	public void setCategoryDtos(Set<CategoryDto> categoryDtos) {
+		this.categoryDtos = categoryDtos;
+	}
+
+	public int getTotalProduct() {
+		return totalProduct;
+	}
+
+	public void setTotalProduct(int totalProduct) {
+		this.totalProduct = totalProduct;
+	}
+	
 }

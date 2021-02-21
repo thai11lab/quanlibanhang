@@ -1,6 +1,7 @@
+<%@page import="webbanhang.utils.SecurityUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@include file="/common/taglib.jsp"%>
 <div id="navbar" class="navbar navbar-default">
 			<script type="text/javascript">
 				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
@@ -285,10 +286,10 @@
 
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+								
 								<span class="user-info">
 									<small>Welcome,</small>
-									Jason
+									<%=SecurityUtils.getPrincipal().getFullName() %>
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -312,7 +313,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">
+									<a href="/webbanhang/logout">
 										<i class="ace-icon fa fa-power-off"></i>
 										Logout
 									</a>

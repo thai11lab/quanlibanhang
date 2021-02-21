@@ -28,8 +28,7 @@ public class ProductServiceImpl implements ProductService{
 	@Autowired
 	ProductRepository productRepository;
 	
-//	@Autowired
-//	ProductMapper productMapper; 
+
 	@Autowired
 	ProductCategoryRepository productCategoryRepository; 
 	
@@ -103,6 +102,21 @@ public class ProductServiceImpl implements ProductService{
 		entity.setMainImageUrl(mainImageUrl);
 		entity = productRepository.save(entity);
 		return new ProductDto(entity);
+	}
+
+
+	@Override
+	public List<ProductEntity> findByDateMin() {
+		// TODO Auto-generated method stub
+		List<ProductEntity> productEntities = productRepository.findByDateMin();
+		return productEntities;
+	}
+
+
+	@Override
+	public List<ProductDto> getProductAsCategory(ProductDto productDto) {
+		List<ProductDto> lisProductAsCategory = productRepository.getProductAsCategory(productDto);
+		return lisProductAsCategory;
 	}
 
 

@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import webbanhang.dto.ProductDto;
-
 @Entity
 @Table(name = "product")
 public class ProductEntity  extends BaseEntity {
@@ -34,6 +32,9 @@ public class ProductEntity  extends BaseEntity {
 	@Column(name="isshow")
 	private Boolean isShow;
 	
+	@Column(name = "total_product")
+	private int totalProduct;
+	
 	@Column(name="website_url")// website link
 	private String websiteUrl; 
 	
@@ -43,7 +44,7 @@ public class ProductEntity  extends BaseEntity {
 	
 	
 	public ProductEntity(String name, String code, String mainImageUrl, String description, Double price,
-			Boolean isShow, String websiteUrl, Set<ProductCategory> productCategorie) {
+			Boolean isShow, String websiteUrl, Set<ProductCategory> productCategorie,int totalProduct) {
 		super();
 		this.name = name;
 		this.code = code;
@@ -53,6 +54,7 @@ public class ProductEntity  extends BaseEntity {
 		this.isShow = isShow;
 		this.websiteUrl = websiteUrl;
 		this.productCategorie = productCategorie;
+		this.totalProduct=totalProduct;
 	}
 
 	
@@ -123,6 +125,16 @@ public class ProductEntity  extends BaseEntity {
 
 	public void setProductCategorie(Set<ProductCategory> productCategorie) {
 		this.productCategorie = productCategorie;
+	}
+
+
+	public int getTotalProduct() {
+		return totalProduct;
+	}
+
+
+	public void setTotalProduct(int totalProduct) {
+		this.totalProduct = totalProduct;
 	}
 		
 }

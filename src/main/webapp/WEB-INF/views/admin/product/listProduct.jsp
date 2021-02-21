@@ -54,6 +54,7 @@
                     <tr>                       
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
                         <th class="hidden-480">Hình ảnh của sản phẩm</th>
                         <th>
                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
@@ -73,6 +74,7 @@
 	                           
 	                        </td>
 	                        <td>${itemProduct.name}</td>
+	                        <td>${itemProduct.totalProduct}</td>
 	                       	<td class="hidden-480"><img src='<c:url value="/template/${itemProduct.mainImageUrl}"/>' alt="" style="width: 50px;height: 50px;"> </td>
 	                        <td><%= (new java.util.Date()).toLocaleString() %></td>
 	

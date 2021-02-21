@@ -9,6 +9,13 @@
     <decorator name="admin" page="admin.jsp">
        <pattern>/admin*</pattern>
     </decorator>
+   
+
+<!-- Tức là khi khai báo kiểu này thằng nào có kí tự đầu là trang-chu-admin thì sẽ sử đụng đc trang decorator -->
+    <decorator name="web" page="web.jsp">
+       <pattern>/home*</pattern>
+    </decorator>
+    
     
     <decorator name="login" page="login.jsp">
        <pattern>/dang-nhap*</pattern>

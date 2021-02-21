@@ -1,24 +1,16 @@
 package webbanhang.controller.admin;
 
-import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import webbanhang.dto.searchDto.ProductSearchDto;
-import webbanhang.dto.searchDto.searchDto;
 import webbanhang.entity.CategoryEntity;
 import webbanhang.entity.ProductEntity;
 import webbanhang.repository.CategoryRepository;
@@ -96,5 +88,7 @@ public class ProductController {
 //		ProductDto result = productService.saveOne(dto,null);
 //		return new ResponseEntity<ProductDto>(dto, dto != null ? HttpStatus.OK :HttpStatus.BAD_REQUEST);
 //	}
+	
+	
 	
 }
