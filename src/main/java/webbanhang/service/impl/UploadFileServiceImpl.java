@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.modelmapper.internal.bytebuddy.utility.privilege.GetSystemPropertyAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,13 +30,13 @@ public class UploadFileServiceImpl implements UploadFileService{
 		String extension = file.getOriginalFilename().split("\\.(?=[^\\.]+$)")[1];
 		UUID fileNameImage = UUID.randomUUID();
 		try { 
-			File fileToBeSaved = new File(servletRequest.getServletContext().getRealPath("/template"), fileNameImage + "." + extension);
+			File fileToBeSaved = new File("D:\\workspace\\web-banhang\\webbanhang\\src\\main\\webapp\\template\\img", fileNameImage + "." + extension);
+			
 			file.transferTo(fileToBeSaved);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
-		String mainImageUrl =fileNameImage+"."+extension;
+		String mainImageUrl ="/api/upload/getImage/"+fileNameImage+"."+extension;
 		ProductDto dto = productService.updateImage(mainImageUrl, productId);
 		return dto;
 	}

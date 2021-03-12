@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Quản lí sản phẩm</title>
 </head>
-<c:url value="/admin/product?pageIndex=1&pageSize=10" var="urlProducts"/>
+<c:url value="/admin/product" var="urlProducts"/>
 <body>
     <div class="main-content">
         <div class="main-content-inner">
@@ -28,12 +28,7 @@
         		<div class="mb-10">
         			<button class="btn btn-xs btn-success mb-10" id="btn-addProduct">Thêm mới sản phẩm</button>
         		</div>
-        		<div>
-        			<input type="text" class="">
-        		</div>
-	        	<div class="mb-10">	        		
-	        		<button class="btn btn-xs btn-success mb-10">Tìm kiếm</button>
-	        	</div>
+        		    		
         	</div>
             <div class="pull-right tableTools-container" style="">
             	<button class="btn btn-xs btn-success mb-10">Import Excell</button>
@@ -41,18 +36,25 @@
             </div>
         </div>
         
-
+		
         <!-- div.table-responsive -->
 
         <!-- div.dataTables_borderWrap -->
-        <form action="${urlProducts}" method="get" id="formProduct" >
+        <form:form action="${urlProducts}" role="form" id="formProduct" modelAttribute="model" method="get">
         <div>
-        	
+        	<div style="margin-bottom: 10px;">
+        		<div style="width: 100%;display: flex;">
+	        		<input type="text" class="" name="keyword" style="width: 100%">
+	        		<button class="btn btn-xs btn-success mb-10" type="submit" style="height:35px">Tìm kiếm</button>
+	       		</div>     
+        	</div>
+        	   	
             <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                 <thead>             	
                     <tr>                       
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
                         <th class="hidden-480">Hình ảnh của sản phẩm</th>
                         <th>
                             <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
@@ -72,7 +74,8 @@
 	                           
 	                        </td>
 	                        <td>${itemProduct.name}</td>
-	                       	<td class="hidden-480"><img src='<c:url value="/template/${itemProduct.mainImageUrl}"/>' alt="" style="width: 50px;height: 50px;"> </td>
+	                        <td>${itemProduct.totalProduct}</td>
+	                       	<td class="hidden-480"><img src='<c:url value="${itemProduct.mainImageUrl}"/>' alt="" style="width: 50px;height: 50px;"> </td>
 	                        <td><%= (new java.util.Date()).toLocaleString() %></td>
 	
 	                        <td class="hidden-480">
@@ -87,15 +90,15 @@
                                                 
                                         </i>
                                     </a>
-	                                <button class="btn btn-xs btn-info btn-UpdateProduct">
+	                                <button class="btn btn-xs btn-info btn-UpdateProduct" value="">
 	                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
 	                                </button>
-	                                
+	                                <input type="hidden" id="id"  value="${itemProduct.id}" >
 	                                
 	                                <button class="btn btn-xs btn-danger btn-DeleteProduct" onclick="deleteProduct(event,${itemProduct.id})">
 	                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
 	                                </button>
-	                                <input type="hidden" id="id"  value="${itemProduct.id}" >
+	                                
 	                            </div>	                            
 	                        </td>
 	                    </tr>
@@ -114,11 +117,12 @@
             <nav aria-label="Page navigation" style="float:right">
         		<ul class="pagination" id="pagination"></ul>
     		</nav>
-    		<input type="hidden" name="pageIndex" id="pageIndex">
-    		<input type="hidden" name="pageSize" id="pageSize">
-    		<input type="hidden" id="idUpdate">
+    		<input type="hidden" name="pageIndex" id="pageIndex" value="1">
+    		<input type="hidden" name="pageSize" id="pageSize" value="10">
+    		
         </div>
-        </form>
+        </form:form>
+        <input type="hidden" id="idUpdate">
                     </div>
                 </div>
             </div>
@@ -132,7 +136,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             <span class="white">&times;</span>
                         </button>
-                        Results for "Latest Registered Domains
+                        Thêm mới sản phẩm
                     </div>
                 </div>
 
@@ -162,6 +166,7 @@
                                 <input type="text"  placeholder="website" class="col-xs-10 col-sm-9" name="websiteUrl" id="websiteUrl"/>
                             </div>
                         </div>
+                
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ảnh sản phẩm </label>
                             <div class="col-sm-9">
@@ -210,7 +215,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             <span class="white">&times;</span>
                         </button>
-                        Results for "Latest Registered Domains
+                        Cập nhật sản phẩm
                     </div>
                 </div>
 
@@ -400,7 +405,7 @@
                 success: function (response) {
              		swal("Good job!", "Thêm sản phẩm thành công!", "success")                       		
              		setTimeout(() => {
-                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
+                        window.location.href="${urlProducts}";
                     }, 2000);             
                 },
                 error:function(res){
@@ -470,7 +475,7 @@
                     
             		swal("Good job!", "Cập nhật thành công!", "success")                       		
                     setTimeout(() => {
-                        window.location.href="${urlProducts}&id="+response.id+"&message=insert_success";
+                        window.location.href="${urlProducts}";
                     }, 2000);
                 },
                 error: function(response){
@@ -507,7 +512,7 @@
                     
             		swal("Good job!", "Xóa thành công!", "success")                       		
                     setTimeout(() => {
-                        window.location.href="${urlProducts}&message=delete_success";
+                        window.location.href="${urlProducts}";
                     }, 2000);
                 },
                 error: function(response){

@@ -75,7 +75,7 @@
 	                        </td>
 	                        <td>${itemProduct.name}</td>
 	                        <td>${itemProduct.totalProduct}</td>
-	                       	<td class="hidden-480"><img src='<c:url value="/template/${itemProduct.mainImageUrl}"/>' alt="" style="width: 50px;height: 50px;"> </td>
+	                       	<td class="hidden-480"><img src='<c:url value="${itemProduct.mainImageUrl}"/>' alt="" style="width: 50px;height: 50px;"> </td>
 	                        <td><%= (new java.util.Date()).toLocaleString() %></td>
 	
 	                        <td class="hidden-480">
@@ -136,7 +136,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             <span class="white">&times;</span>
                         </button>
-                        Results for "Latest Registered Domains
+                        Thêm mới sản phẩm
                     </div>
                 </div>
 
@@ -166,6 +166,7 @@
                                 <input type="text"  placeholder="website" class="col-xs-10 col-sm-9" name="websiteUrl" id="websiteUrl"/>
                             </div>
                         </div>
+                
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ảnh sản phẩm </label>
                             <div class="col-sm-9">
@@ -214,7 +215,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             <span class="white">&times;</span>
                         </button>
-                        Results for "Latest Registered Domains
+                        Cập nhật sản phẩm
                     </div>
                 </div>
 
@@ -242,6 +243,12 @@
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Link website </label>
                             <div class="col-sm-9">
                                 <input type="text"  placeholder="website" class="col-xs-10 col-sm-9" name="websiteUrl" id="websiteUrl"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ảnh sản phẩm </label>
+                            <div class="col-sm-9">
+                                <input type="file"  placeholder="website" class="col-xs-10 col-sm-9" name="file" id="file"/>
                             </div>
                         </div>
                         <div class="form-group">

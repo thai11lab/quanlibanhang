@@ -6,6 +6,7 @@
         <class>webbanhang.entity.ProductEntity</class>
         <class>webbanhang.entity.CategoryEntity</class>
         <class>webbanhang.entity.ProductCategory</class>
+      	<class>webbanhang.entity.OrderEntity</class>
     </persistence-unit>
 </persistence>
 

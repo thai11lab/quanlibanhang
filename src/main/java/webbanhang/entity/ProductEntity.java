@@ -7,6 +7,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -41,7 +44,8 @@ public class ProductEntity  extends BaseEntity {
 	@OneToMany(mappedBy = "productEntity",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
 	private Set<ProductCategory> productCategorie;  
 	
-	
+	@OneToMany(mappedBy = "productEntity",fetch = FetchType.LAZY)
+	Set<OrderProductEntity> orderProductEntities;
 	
 	public ProductEntity(String name, String code, String mainImageUrl, String description, Double price,
 			Boolean isShow, String websiteUrl, Set<ProductCategory> productCategorie,int totalProduct) {
@@ -136,5 +140,21 @@ public class ProductEntity  extends BaseEntity {
 	public void setTotalProduct(int totalProduct) {
 		this.totalProduct = totalProduct;
 	}
+
+
+	public Set<OrderProductEntity> getOrderProductEntities() {
+		return orderProductEntities;
+	}
+
+
+	public void setOrderProductEntities(Set<OrderProductEntity> orderProductEntities) {
+		this.orderProductEntities = orderProductEntities;
+	}
+
+
+	
+
+
+	
 		
 }

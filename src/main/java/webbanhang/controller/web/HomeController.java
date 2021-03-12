@@ -2,6 +2,8 @@ package webbanhang.controller.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,11 @@ public class HomeController {
 	ProductService productService;
 	
 	@RequestMapping(value = "/home",method = RequestMethod.GET)
-	public ModelAndView home() {
-	
+	public ModelAndView home(HttpSession session) {
+		Integer number = (Integer) session.getAttribute("myCartNum");
+		if (number==null) {
+			session.setAttribute("myCartNum",0);
+		}
 		ModelAndView modelAndView = new ModelAndView("web/home");
 		List<ProductEntity> productEntities = productService.findByDateMin();
 		modelAndView.addObject("listProductNew", productEntities);

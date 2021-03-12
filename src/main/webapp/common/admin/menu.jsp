@@ -3,6 +3,7 @@
 <%@include file="/common/taglib.jsp"%>
 <c:url value="/admin/product" var="urlProducts"/>
 <c:url value="/admin/category" var="urlCategory"/>
+<c:url value="/admin/order" var="urlOrder"/>
 <div id="sidebar" class="sidebar                  responsive">
     <script type="text/javascript">
         try {
@@ -349,6 +350,14 @@
             <a href="${urlCategory}">
                 <i class="menu-icon fa fa-list-alt"></i>
                 <span class="menu-text">Quản lí thể loại</span>
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+        <li class="">
+            <a href="${urlOrder}">
+                <i class="menu-icon fa fa-list-alt"></i>
+                <span class="menu-text">Quản lí đơn hàng</span>
             </a>
 
             <b class="arrow"></b>

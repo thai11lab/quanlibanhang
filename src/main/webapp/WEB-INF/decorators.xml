@@ -21,5 +21,7 @@
        <pattern>/dang-nhap*</pattern>
     </decorator>
     
-	
+	<decorator name="cart" page="web.jsp">
+       <pattern>/detail_cart</pattern>
+    </decorator>
 </decorators>
