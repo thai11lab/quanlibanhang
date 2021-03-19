@@ -17,7 +17,7 @@
                     here to enter your code.</h6>
                 </div>
             </div>
-            <form action="#" class="checkout__form" >
+            <form:form class="checkout__form" action="${urlProducts}" role="form" id="formProduct" modelAttribute="modelCheckOut" method="post">
                 <div class="row">
                     <div class="col-lg-8">
                         <h5>Billing detail</h5>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form:form>
             </div>
         </section>
         <!-- Checkout Section End -->

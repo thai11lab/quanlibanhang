@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +14,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import webbanhang.dto.CartDto;
+import webbanhang.dto.OrderDtos;
 import webbanhang.dto.searchDto.ProductSearchDto;
+import webbanhang.repository.OrderRepository;
+import webbanhang.service.OrderService;
 
 @Controller
 @RequestMapping("/home")
 public class CheckOutController {
+	
+	@Autowired
+	OrderService orderService;
+	
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/checkout",method = RequestMethod.GET)	
@@ -37,5 +45,14 @@ public class CheckOutController {
 		
 	}
 	
+	@RequestMapping(value = "/checkout",method = RequestMethod.POST)	
+	public ModelAndView getViewCheckOut(@ModelAttribute("modelCheckOut") OrderDtos dto,HttpSession httpSession) {
+		ModelAndView modelAndView = new ModelAndView("web/checkout");
+		Map<Long, CartDto> listCart=  (Map<Long, CartDto>) httpSession.getAttribute("myCart");
+		List<CartDto> listProductOrder = new ArrayList<CartDto>();
+		orderService.save(dto);
+		return modelAndView;
+		
+	}
 	
 }
