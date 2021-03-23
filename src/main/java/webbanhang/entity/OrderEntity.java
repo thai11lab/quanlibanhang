@@ -3,6 +3,7 @@ package webbanhang.entity;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,7 @@ public class OrderEntity extends BaseEntity{
 	private Date deliveryDate;
 	
 	
-	@OneToMany(mappedBy = "orderEntity",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "orderEntity",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Set<OrderProductEntity> orderProductEntities;
 	
 	public OrderEntity() {
@@ -104,6 +105,16 @@ public class OrderEntity extends BaseEntity{
 
 	public void setOrderProductEntities(Set<OrderProductEntity> orderProductEntities) {
 		this.orderProductEntities = orderProductEntities;
+	}
+
+
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+
+
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
 	}
 
 

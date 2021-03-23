@@ -16,6 +16,19 @@ public class OrderProductEntity extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private OrderEntity orderEntity;
+	
+	
+	public OrderProductEntity(ProductEntity productEntity, OrderEntity orderEntity) {
+		super();
+		this.productEntity = productEntity;
+		this.orderEntity = orderEntity;
+	}
+	
+	
+	public OrderProductEntity() {
+		super();
+	}
+
 
 	public ProductEntity getProductEntity() {
 		return productEntity;

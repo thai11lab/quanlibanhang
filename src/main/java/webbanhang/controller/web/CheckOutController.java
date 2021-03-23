@@ -50,7 +50,14 @@ public class CheckOutController {
 		ModelAndView modelAndView = new ModelAndView("web/checkout");
 		Map<Long, CartDto> listCart=  (Map<Long, CartDto>) httpSession.getAttribute("myCart");
 		List<CartDto> listProductOrder = new ArrayList<CartDto>();
-		orderService.save(dto);
+		if (listCart != null) {
+			for (Map.Entry<Long,CartDto> item : listCart.entrySet()) {
+				listProductOrder.add(item.getValue());
+			}
+		}	
+		orderService.save(dto,listProductOrder);
+		httpSession.removeAttribute("myCart");
+		httpSession.setAttribute("myCartNum", 0);
 		return modelAndView;
 		
 	}

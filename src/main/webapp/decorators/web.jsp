@@ -13,7 +13,7 @@
         rel="stylesheet">
 
     <!-- Css Styles -->
-
+	
     <link rel="stylesheet" href="<c:url value='/template/web/css/bootstrap.min.css'/>" type="text/css">
     <link rel="stylesheet" href='<c:url value='/template/web/css/font-awesome.min.css'> </c:url>' type="text/css">
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
@@ -25,6 +25,7 @@
     <link rel="stylesheet" href='<c:url value="/template/web/css/slicknav.min.css"></c:url>' type="text/css">
     <link rel="stylesheet" href='<c:url value='/template/web/css/style.css'> </c:url>' type="text/css">
     <link rel="stylesheet" href="<c:url value='/template/admin/assets/sweetalert2/sweetalert2.min.css' />" />
+   
     <script src='<c:url value="/template/web/js/jquery-3.3.1.min.js"></c:url>'></script>
     <script src='<c:url value="/template/web/js/bootstrap.min.js"></c:url>'></script>
 </head>
@@ -51,14 +52,17 @@
     </script>
     <script src="<c:url value='/template/admin/assets/sweetalert2/sweetalert2.min.js' />"></script>
     <script src="<c:url value='/template/admin/assets/uploadFile/upload.js' />"></script>
-
+	<script src="<c:url value='/template/tada/tata.js' />"></script>
     <script type="text/javascript">
         function addToCart(id) {
             $.ajax({
                 type: "GET",
                 url: "http://localhost:8080/webbanhang/api/cart/" + id,
                 success: function (response) {
-                    swal("Good job!", "Thêm vào giỏ hàng thành công!", "success")
+                	tata.success('OK', 'Thêm vào giỏ hàng thành công',{
+                		position: 'tr',
+                		animate: 'slide'
+                	});
                   
                     $(".cart").html(Object.keys(response).length);
                 },
@@ -75,10 +79,15 @@
 		        type: "GET",
 		        url: "http://localhost:8080/webbanhang/api/cart/remove/"+id,
 		        success: function (response) {
-		        	swal("Good job!", "Xóa thành công!", "success")                       		
-		            setTimeout(() => {
-		                window.location.href="${urlDetailsCart}";
-		            }, 2000);               
+		        	setTimeout(() => {
+			                window.location.href="${urlDetailsCart}";
+			        }, 1000); 
+		        	tata.success('OK', 'Thêm vào giỏ hàng thành công',{
+                		position: 'tr',
+                		animate: 'slide'
+                	});  
+		        	
+		                         
 		            $(".cart").html(Object.keys(response).length);
 		        },
 		        error: function (res) {

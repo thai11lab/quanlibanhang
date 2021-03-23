@@ -44,8 +44,8 @@ public class ProductEntity  extends BaseEntity {
 	@OneToMany(mappedBy = "productEntity",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
 	private Set<ProductCategory> productCategorie;  
 	
-	@OneToMany(mappedBy = "productEntity",fetch = FetchType.LAZY)
-	Set<OrderProductEntity> orderProductEntities;
+	@OneToMany(mappedBy = "productEntity",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private Set<OrderProductEntity> orderProductEntities;
 	
 	public ProductEntity(String name, String code, String mainImageUrl, String description, Double price,
 			Boolean isShow, String websiteUrl, Set<ProductCategory> productCategorie,int totalProduct) {

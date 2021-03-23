@@ -25,27 +25,27 @@
                             <div class="col-lg-12 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Họ tên<span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="customerName">
                                 </div>
                             </div>
                        
                             <div class="col-lg-12">
                                 <div class="checkout__form__input">
                                     <p>Địa chỉ<span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="customerAddress">
                                 </div>
                               
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Phone <span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="customerPhone">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Email <span>*</span></p>
-                                    <input type="text">
+                                    <input type="email" name="customerEmail">
                                 </div>
                             </div>
                            
@@ -73,7 +73,7 @@
                                 <div class="checkout__order__widget">
                                   	
                                 </div>
-                                <button type="submit" class="site-btn">Place oder</button>
+                                <button type="submit" class="site-btn">Đặt hàng</button>
                             </div>
                         </div>
                     </div>
