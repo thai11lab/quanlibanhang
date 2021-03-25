@@ -2,22 +2,25 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Đặt hàng</title>
+    <meta charset="UTF-8">
+    <title>Đặt hàng</title>
 </head>
 <%@include file="/common/taglib.jsp" %>
+
 <body>
-	<!-- Checkout Section Begin -->
+    <!-- Checkout Section Begin -->
     <section class="checkout spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <h6 class="coupon__link"><span class="icon_tag_alt"></span> <a href="#">Have a coupon?</a> Click
-                    here to enter your code.</h6>
+                        here to enter your code.</h6>
                 </div>
             </div>
-            <form:form class="checkout__form" action="${urlProducts}" role="form" id="formProduct" modelAttribute="modelCheckOut" method="post">
+            <form:form class="checkout__form" action="${urlProducts}" role="form" id="formCheckOut"
+                modelAttribute="modelCheckOut" method="post" onsubmit="return false">
                 <div class="row">
                     <div class="col-lg-8">
                         <h5>Billing detail</h5>
@@ -25,61 +28,64 @@
                             <div class="col-lg-12 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Họ tên<span>*</span></p>
-                                    <input type="text" name="customerName">
+                                    <input type="text" name="customerName" id="customerName">
                                 </div>
                             </div>
-                       
+
                             <div class="col-lg-12">
                                 <div class="checkout__form__input">
                                     <p>Địa chỉ<span>*</span></p>
-                                    <input type="text" name="customerAddress">
+                                    <input type="text" name="customerAddress" id="customerAddress">
                                 </div>
-                              
+
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Phone <span>*</span></p>
-                                    <input type="text" name="customerPhone">
+                                    <input type="text" name="customerPhone" id="customerPhone">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Email <span>*</span></p>
-                                    <input type="email" name="customerEmail">
+                                    <input type="email" name="customerEmail" id="customerEmail">
                                 </div>
                             </div>
-                           
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="checkout__order">
-                                <h5>Đơn hàng của bạn</h5>
-                                <div class="checkout__order__product">
-                                    <ul>
-                                        <li>
-                                            <span class="top__text">Sản phẩm</span>
-                                            <span class="top__text__right">Thành tiền</span>
-                                        </li>
-                                        <c:forEach var="listProductOrder" items="${listProductOrder}">
-	                                        <li>01. ${listProductOrder.productDto.name} &nbsp;x &nbsp;${listProductOrder.quantity} <span>${listProductOrder.totalPrice}</span></li>
-                                        </c:forEach>
-                                    </ul>
-                                </div>
-                                <div class="checkout__order__total">
-                                    <ul>
-                                        <li>Thành tiền<span>${totalMoney}</span></li>
-                                    </ul>
-                                </div>
-                                <div class="checkout__order__widget">
-                                  	
-                                </div>
-                                <button type="submit" class="site-btn">Đặt hàng</button>
-                            </div>
+
                         </div>
                     </div>
-                </form:form>
-            </div>
-        </section>
-        <!-- Checkout Section End -->
+                    <div class="col-lg-4">
+                        <div class="checkout__order">
+                            <h5>Đơn hàng của bạn</h5>
+                            <div class="checkout__order__product">
+                                <ul>
+                                    <li>
+                                        <span class="top__text">Sản phẩm</span>
+                                        <span class="top__text__right">Thành tiền</span>
+                                    </li>
+                                    <c:forEach var="listProductOrder" items="${listProductOrder}">
+                                        <li>01. ${listProductOrder.productDto.name} &nbsp;x
+                                            &nbsp;${listProductOrder.quantity}
+                                            <span>${listProductOrder.totalPrice}</span></li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                            <div class="checkout__order__total">
+                                <ul>
+                                    <li>Thành tiền<span>${totalMoney}</span></li>
+                                </ul>
+                            </div>
+                            <div class="checkout__order__widget">
+
+                            </div>
+                            <button class="site-btn">Đặt hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </form:form>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
 </body>
+
 </html>

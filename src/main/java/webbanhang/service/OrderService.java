@@ -10,6 +10,6 @@ import webbanhang.dto.OrderDtos;
 @Service
 public interface OrderService {
 
-	void save(OrderDtos dto,List<CartDto> listProductOrder);
+	OrderDtos save(OrderDtos dto,List<CartDto> listProductOrder);
 	
 }

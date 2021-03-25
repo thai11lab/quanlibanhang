@@ -96,6 +96,7 @@
 		    });
 		}
 	</script>
+	<script src="<c:url value='/template/clientlogic/web/FormCheckOut.js' />"></script>
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+<%@page import="webbanhang.utils.SecurityUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
@@ -34,15 +35,23 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
+                    	
                         <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
+                        	<security:authorize access="isAnonymous()">
+                        		<a href="#">Login</a>
+                            	<a href="#">Register</a>
+                            </security:authorize>
+                            <security:authorize access="isAuthenticated()">	                        
+	                            <a href="#">Xin chào,<%=SecurityUtils.getPrincipal().getFullName()%>
+	                            	
+	                            </a>
+		                        <a href="#">Register</a>                       	                            	                        
+                        	</security:authorize>
                         </div>
+                        
+                        
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
-                                <div class="tip heart">2</div>
-                            </a></li>
                             <li><a href="${urlDetailsCart}"><span class="icon_bag_alt"></span>
                                 <div class="tip cart"><%=session.getAttribute("myCartNum") %></div>
                             </a></li>
