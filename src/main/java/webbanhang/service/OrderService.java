@@ -11,5 +11,7 @@ import webbanhang.dto.OrderDtos;
 public interface OrderService {
 
 	OrderDtos save(OrderDtos dto,List<CartDto> listProductOrder);
+
+	List<OrderDtos> findAll();
 	
 }

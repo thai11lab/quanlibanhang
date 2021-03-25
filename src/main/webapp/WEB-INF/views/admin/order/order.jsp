@@ -35,8 +35,20 @@
         <div>
         	<div style="margin-bottom: 10px;">
         		<div style="width: 100%;display: flex;">
-	        		<input type="text" class="" name="keyword" style="width: 100%">
-	        		<button class="btn btn-xs btn-success mb-10" type="submit" style="height:35px">Tìm kiếm</button>
+        			<div style="display: flex;height: 35px;flex-grow: 1">
+        				<input type="text" class="" name="keyword" placeholder="Từ khóa..." style="margin-right: 10px;">
+        				<label>Ngày đặt</label>
+        				<input type="date" class="" name="dateFrom" style="margin-right: 10px" placeholder="Ngày đặt hàng">
+        				<label>Ngày giao hàng</label>
+        				<input type="date" class="" name="dateRecive" style="margin-right: 10px">
+        				<select id="cars" style="height: 100%;width: 20%" name="status">
+						  <option value="0">Chưa giao hàng</option>
+						  <option value="1">Đang vận chuyển</option>
+						  <option value="2">Đã giao hàng</option>
+						</select>
+        			</div>
+	        		
+	        		<button class="btn btn-xs btn-success mb-10" type="submit" style="height:35px;">Tìm kiếm</button>
 	       		</div>     
         	</div>
         	   	
@@ -56,27 +68,25 @@
                            	Ngày giao hàng
                         </th>
                         <th class="hidden-480">Giá sản phẩm</th>
-
+						<th class="hidden-480">Trạng thái</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                	<c:forEach var="itemProduct" items="${listProduct}">               		
+                	<c:forEach var="itemOrder" items="${listOrder}">               		
 	                    <tr>							
 	                        <td>
-	                            ${itemProduct.code}
+	                            ${itemOrder.code}
 	                           
 	                        </td>
-	                        <td>${itemProduct.name}</td>
-	                        <td>${itemProduct.totalProduct}</td>
-	                       	<td class="hidden-480"><img src='<c:url value="${itemProduct.mainImageUrl}"/>' alt="" style="width: 50px;height: 50px;"> </td>
-	                        <td><%= (new java.util.Date()).toLocaleString() %></td>
-	
-	                        <td class="hidden-480">
-	                           	${itemProduct.price }
-	                        </td>
-	
+	                        <td>${itemOrder.customerName}</td>
+	                      	<td>${itemOrder.customerAddress}</td>
+	                       	<td>${itemOrder.customerPhone}</td>
+	               			<td>${itemOrder.createdDate}</td>
+							<td>${itemOrder.deliveryDate}</td>
+	                        <td>${itemOrder.totalMoney}</td>
+							<td>${itemOrder.status == 0 ?"Chưa giao hàng":itemOrder.status==2?"Đã giao hàng":"Đang vận chuyển"}</td>
 	                        <td>
 	                            <div class="hidden-sm hidden-xs action-buttons">
 	                                
@@ -88,23 +98,18 @@
 	                                <button class="btn btn-xs btn-info btn-UpdateProduct" value="">
 	                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
 	                                </button>
-	                                <input type="hidden" id="id"  value="${itemProduct.id}" >
-	                                
-	                                <button class="btn btn-xs btn-danger btn-DeleteProduct" onclick="deleteProduct(event,${itemProduct.id})">
-	                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
-	                                </button>
-	                                
+	                                <input type="hidden" id="id"  value="${itemProduct.id}" > 
 	                            </div>	                            
 	                        </td>
 	                    </tr>
                     </c:forEach>
                                  
                 </tbody>
-                <c:set var="listProductJstl" value="${listProduct}"></c:set>
+                <c:set var="listProductJstl" value="${listOrder}"></c:set>
                 
                 <tfoot align="center" style="display:<c:out value="${not empty listProductJstl ?'none':''}" ></c:out>">
 			        <tr>
-			           <td colspan="7">Không có dữ liệu</td>
+			           <td colspan="8">Không có dữ liệu</td>
 			        </tr>
     			</tfoot>
                 

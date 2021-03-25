@@ -32,6 +32,11 @@ public class OrderEntity extends BaseEntity{
 	@Column(name = "delivery_date")
 	private Date deliveryDate;
 	
+	@Column(name = "status")
+	private int status;
+	
+	@Column(name = "total_money")
+	private double totalMoney;
 	
 	@OneToMany(mappedBy = "orderEntity",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Set<OrderProductEntity> orderProductEntities;
@@ -41,7 +46,7 @@ public class OrderEntity extends BaseEntity{
 	}
 	
 	
-	public OrderEntity(String code, String customerName, String customerPhone, String customerAddress,Date deliveryDate,String email) {
+	public OrderEntity(String code, String customerName, String customerPhone, String customerAddress,Date deliveryDate,String email,int status,double totalMoney) {
 		super();
 		this.code = code;
 		this.customerName = customerName;
@@ -49,6 +54,8 @@ public class OrderEntity extends BaseEntity{
 		this.customerAddress = customerAddress;
 		this.deliveryDate=deliveryDate;
 		this.customerEmail = email;
+		this.status= status;
+		this.totalMoney=totalMoney;
 	}
 
 
@@ -118,7 +125,23 @@ public class OrderEntity extends BaseEntity{
 	}
 
 
-	
-		
+	public int getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
+	public double getTotalMoney() {
+		return totalMoney;
+	}
+
+
+	public void setTotalMoney(double totalMoney) {
+		this.totalMoney = totalMoney;
+	}
 	
 }

@@ -34,6 +34,7 @@ public class RestCheckoutController {
 				listProductOrder.add(item.getValue());
 			}
 		}	
+		
 		Object result = orderService.save(dtos,listProductOrder);
 		httpSession.removeAttribute("myCart");
 		httpSession.setAttribute("myCartNum", 0);

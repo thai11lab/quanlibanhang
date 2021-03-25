@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 
-public class OrderDtos {
+public class OrderDtos extends BaseDto{
 	private String code;
 	
 	
@@ -21,9 +21,12 @@ public class OrderDtos {
 	
 	private Date deliveryDate;
 	
+	private int status;
+	
+	private double totalMoney;
 	
 	public OrderDtos(String code, String customerName, String customerPhone, String customerAddress,
-			String customerEmail, Date deliveryDate) {
+			String customerEmail, Date deliveryDate,int status,double totalMoney) {
 		super();
 		this.code = code;
 		this.customerName = customerName;
@@ -31,6 +34,8 @@ public class OrderDtos {
 		this.customerAddress = customerAddress;
 		this.customerEmail = customerEmail;
 		this.deliveryDate = deliveryDate;
+		this.status = status;
+		this.totalMoney = totalMoney;
 	}
 	
 	
@@ -85,6 +90,26 @@ public class OrderDtos {
 
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
+	}
+
+
+	public int getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
+	public double getTotalMoney() {
+		return totalMoney;
+	}
+
+
+	public void setTotalMoney(double totalMoney) {
+		this.totalMoney = totalMoney;
 	}
 	
 	

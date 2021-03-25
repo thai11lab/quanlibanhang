@@ -1,6 +1,9 @@
 package webbanhang.service.impl;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,16 @@ public class OrderServiceImpl implements OrderService{
 	ProductRepository productRepository;
 	@Override
 	public OrderDtos save(OrderDtos dto,List<CartDto> cartDtos) {
-		ProductMapper productMapper = new ProductMapper();
+		dto.setStatus(0);
+		dto.setCode("DH"+UUID.randomUUID().toString().substring(0,5));
+		dto.setDeliveryDate(new Date());
+		double totaMoney =0;
+		if (cartDtos.size()>0) {
+			for (CartDto cartDto : cartDtos) {
+				totaMoney+=cartDto.getTotalPrice();
+			}
+		}
+		dto.setTotalMoney(totaMoney);
 		OrderEntity entity = OrderMapper.convertToEntity(dto);
 		orderRepository.save(entity);
 		if (cartDtos.size()>0 && cartDtos != null) {					
@@ -44,6 +56,12 @@ public class OrderServiceImpl implements OrderService{
 			}
 		}
 		return dto;
+	}
+	@Override
+	public List<OrderDtos> findAll() {
+		// TODO Auto-generated method stub
+		List<OrderEntity> ordeEntities = orderRepository.findAll(); 
+		return ordeEntities.stream().map(item->OrderMapper.convertToDto(item)).collect(Collectors.toList());
 	}
 
 }
