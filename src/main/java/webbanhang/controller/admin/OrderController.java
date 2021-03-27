@@ -2,6 +2,9 @@ package webbanhang.controller.admin;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -27,18 +30,19 @@ public class OrderController {
 	
 	
 	@RequestMapping(value = "/order",method = RequestMethod.GET)	
-	public ModelAndView listProductBySearch(@ModelAttribute("model") OrderSearchDto dto) {
+	public ModelAndView listProductBySearch(@ModelAttribute("model") OrderSearchDto dto,HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("/admin/order/order");
 		if (dto.getPageIndex() == 0 && dto.getPageSize()==0) {
 			dto.setPageIndex(1);
 			dto.setPageSize(10);
 		}
+		
 		Page<OrderDtos> pageData = orderService.findBySearch(dto);
 		List<OrderDtos> listOder = pageData.getContent();
 		
 		Long totalProduct = pageData.getTotalElements();
 		int totalPage = pageData.getTotalPages();
-
+		
 		modelAndView.addObject("pageIndex",dto.getPageIndex());
 		modelAndView.addObject("pageSize",dto.getPageSize());
 		modelAndView.addObject("totalPage", totalPage);

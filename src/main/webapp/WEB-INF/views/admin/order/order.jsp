@@ -31,26 +31,26 @@
         <!-- div.table-responsive -->
 
         <!-- div.dataTables_borderWrap -->
-        <form:form action="${urlProducts}" role="form" id="formProduct" modelAttribute="model" method="get">
+        <form:form action="${urlProducts}" role="form" id="formOrder" modelAttribute="model" method="get">
         <div>
         	<div style="margin-bottom: 10px;">
         		<div style="width: 100%;display: flex;height:100%">
         			<div style="display: flex;flex-grow: 1">
         				<div style="display: flex;flex-direction: column;">
         					<label for="keyword">Từ khóa cần tìm kiếm</label>
-        					<input type="text" class="" name="keyword" placeholder="Từ khóa..." style="margin-right: 10px;">
+        					<input type="text" class="" name="keyword" placeholder="Từ khóa..." style="margin-right: 10px;" id="keyword">
         				</div>
         				<div style="display: flex;flex-direction: column;">
         					<label for="dateFrom">Ngày đặt</label>
-        					<input type="date" class="" name="dateOrder" style="margin-right:10px;height: 35px" placeholder="Ngày đặt hàng">
+        					<input type="date" class="" id="dateOrder" name="dateOrder" style="margin-right:10px;height: 35px" placeholder="Ngày đặt hàng">
         				</div>
         				<div style="display: flex;flex-direction: column;">
 	        				<label>Ngày giao hàng</label>
-	        				<input type="date" class="" name="dateRecive" style="margin-right: 10px;height: 35px">
+	        				<input type="date" class="" name="dateRecive" id="dateRecive" style="margin-right: 10px;height: 35px">
         				</div>
-        				<div style="display: flex;flex-direction: column;width:20%">
+        				<div style="display: flex;flex-direction: column;width:20%" >
 	        				<label>Trạng thái đơn hàng</label>
-	        				<select id="cars" style="height: 35px;width: 100%" name="status">
+	        				<select  style="height: 35px;width: 100%" name="status" id="status">
 	        				  <option value="0">Chưa giao hàng</option>
 							  <option value="1">Chưa giao hàng</option>
 							  <option value="2">Đang vận chuyển</option>
@@ -58,8 +58,9 @@
 							</select>
 						</div>
         			</div>
+        			<div class="btn btn-xs btn-danger mb-10" id="btn-search" style="width: 10%;margin-right: 10px" onclick="myReset()">Reset</div>
+	        		<div class="btn btn-xs btn-success mb-10" id="btn-search" style="width: 10%;" onclick="mySearch()">Tìm kiếm</div>
 	        		
-	        		<button class="btn btn-xs btn-success mb-10" type="submit" style="width: 10%">Tìm kiếm</button>
 	       		</div>     
         	</div>
         	   	
@@ -219,6 +220,31 @@
         </div><!-- /.modal-dialog -->
     </div><!-- PAGE CONTENT ENDS -->
     <script type="text/javascript">
+    	function mySearch(){
+    		var key = document.getElementById("keyword").value;
+    		var dateOrder = document.getElementById("dateOrder").value;
+    		var dateRecive = document.getElementById("dateRecive").value;
+    		var status = document.getElementById("status").value;
+    		
+    		localStorage.setItem("keyword",key);
+    		localStorage.setItem("dateOrder",dateOrder);
+    		localStorage.setItem("dateRecive",dateRecive);
+    		localStorage.setItem("status",status);
+    		document.getElementById("formOrder").submit();
+    		
+    	}
+    	
+    	function myReset(){
+    		document.getElementById("keyword").value="";
+    		document.getElementById("dateOrder").value="";
+    		document.getElementById("dateRecive").value="";
+    		document.getElementById("status").value="";
+    		
+    		localStorage.setItem("keyword",key);
+    		localStorage.setItem("dateOrder",dateOrder);
+    		localStorage.setItem("dateRecive",dateRecive);
+    		localStorage.setItem("status",status);	
+    	}
 	    $(function () {
 	        $('select[multiple].active.3col').multiselect({
 	            columns: 1,
@@ -240,11 +266,12 @@
                 totalPages: totalPages,
                 visiblePages: 10,  
                 startPage: currentPage,        
-                onPageClick: function (event, page) { 
+                onPageClick: function (event, page) {
+                	$("#keyword").val(localStorage.getItem("keyword"));
                     if(currentPage != page){  
                         $("#pageIndex").val(page);
                         $("#pageSize").val(pageSize);
-                        $("#formProduct").submit();        
+                        $("#formOrder").submit();        
                     }
                     
                 }
