@@ -7,10 +7,13 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import webbanhang.dto.CartDto;
 import webbanhang.dto.OrderDtos;
+import webbanhang.dto.searchDto.CategorySearchDto;
+import webbanhang.dto.searchDto.OrderSearchDto;
 import webbanhang.entity.OrderEntity;
 import webbanhang.entity.OrderProductEntity;
 import webbanhang.entity.ProductEntity;
@@ -32,6 +35,7 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	ProductRepository productRepository;
+	
 	@Override
 	public OrderDtos save(OrderDtos dto,List<CartDto> cartDtos) {
 		dto.setStatus(0);
@@ -62,6 +66,11 @@ public class OrderServiceImpl implements OrderService{
 		// TODO Auto-generated method stub
 		List<OrderEntity> ordeEntities = orderRepository.findAll(); 
 		return ordeEntities.stream().map(item->OrderMapper.convertToDto(item)).collect(Collectors.toList());
+	}
+	
+	@Override
+	public Page<OrderDtos> findBySearch(OrderSearchDto dto) {
+		return orderRepository.findBySearch(dto);
 	}
 
 }

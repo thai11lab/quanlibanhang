@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import webbanhang.dto.OrderDtos;
+import webbanhang.dto.searchDto.CategorySearchDto;
+import webbanhang.dto.searchDto.OrderSearchDto;
 import webbanhang.dto.searchDto.ProductSearchDto;
 import webbanhang.entity.CategoryEntity;
 import webbanhang.entity.ProductEntity;
@@ -25,10 +27,24 @@ public class OrderController {
 	
 	
 	@RequestMapping(value = "/order",method = RequestMethod.GET)	
-	public ModelAndView listProductBySearch(@ModelAttribute("model") ProductSearchDto dto) {
+	public ModelAndView listProductBySearch(@ModelAttribute("model") OrderSearchDto dto) {
 		ModelAndView modelAndView = new ModelAndView("/admin/order/order");
-		List<OrderDtos>  listOrder= orderService.findAll();
-		modelAndView.addObject("listOrder", listOrder);
+		if (dto.getPageIndex() == 0 && dto.getPageSize()==0) {
+			dto.setPageIndex(1);
+			dto.setPageSize(10);
+		}
+		Page<OrderDtos> pageData = orderService.findBySearch(dto);
+		List<OrderDtos> listOder = pageData.getContent();
+		
+		Long totalProduct = pageData.getTotalElements();
+		int totalPage = pageData.getTotalPages();
+
+		modelAndView.addObject("pageIndex",dto.getPageIndex());
+		modelAndView.addObject("pageSize",dto.getPageSize());
+		modelAndView.addObject("totalPage", totalPage);
+		modelAndView.addObject("listOrder", listOder);
+		
+//		modelAndView.addObject("totalProduct", totalProduct);
 		return modelAndView;
 		
 	}

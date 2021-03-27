@@ -2,11 +2,12 @@ package webbanhang.repository.custom;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
+import webbanhang.dto.OrderDtos;
 import webbanhang.dto.searchDto.CategorySearchDto;
-import webbanhang.entity.CategoryEntity;
+import webbanhang.dto.searchDto.OrderSearchDto;
+
 @Repository
-public interface CategoryRepositoryCustom {
-	Page<CategoryEntity> findBySearch(CategorySearchDto dto);
+public interface OrderRepositoryCustom {
+	Page<OrderDtos> findBySearch(OrderSearchDto dto);
 }

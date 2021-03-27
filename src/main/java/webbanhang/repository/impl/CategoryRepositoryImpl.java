@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
 import webbanhang.dto.searchDto.CategorySearchDto;
 import webbanhang.dto.searchDto.searchDto;
@@ -20,6 +21,7 @@ import webbanhang.entity.ProductEntity;
 import webbanhang.repository.CategoryRepository;
 import webbanhang.repository.custom.CategoryRepositoryCustom;
 
+@Repository
 public class CategoryRepositoryImpl implements CategoryRepositoryCustom{
 
 	@PersistenceContext

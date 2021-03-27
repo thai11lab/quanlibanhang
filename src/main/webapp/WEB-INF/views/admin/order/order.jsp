@@ -34,21 +34,32 @@
         <form:form action="${urlProducts}" role="form" id="formProduct" modelAttribute="model" method="get">
         <div>
         	<div style="margin-bottom: 10px;">
-        		<div style="width: 100%;display: flex;">
-        			<div style="display: flex;height: 35px;flex-grow: 1">
-        				<input type="text" class="" name="keyword" placeholder="Từ khóa..." style="margin-right: 10px;">
-        				<label>Ngày đặt</label>
-        				<input type="date" class="" name="dateFrom" style="margin-right: 10px" placeholder="Ngày đặt hàng">
-        				<label>Ngày giao hàng</label>
-        				<input type="date" class="" name="dateRecive" style="margin-right: 10px">
-        				<select id="cars" style="height: 100%;width: 20%" name="status">
-						  <option value="0">Chưa giao hàng</option>
-						  <option value="1">Đang vận chuyển</option>
-						  <option value="2">Đã giao hàng</option>
-						</select>
+        		<div style="width: 100%;display: flex;height:100%">
+        			<div style="display: flex;flex-grow: 1">
+        				<div style="display: flex;flex-direction: column;">
+        					<label for="keyword">Từ khóa cần tìm kiếm</label>
+        					<input type="text" class="" name="keyword" placeholder="Từ khóa..." style="margin-right: 10px;">
+        				</div>
+        				<div style="display: flex;flex-direction: column;">
+        					<label for="dateFrom">Ngày đặt</label>
+        					<input type="date" class="" name="dateOrder" style="margin-right:10px;height: 35px" placeholder="Ngày đặt hàng">
+        				</div>
+        				<div style="display: flex;flex-direction: column;">
+	        				<label>Ngày giao hàng</label>
+	        				<input type="date" class="" name="dateRecive" style="margin-right: 10px;height: 35px">
+        				</div>
+        				<div style="display: flex;flex-direction: column;width:20%">
+	        				<label>Trạng thái đơn hàng</label>
+	        				<select id="cars" style="height: 35px;width: 100%" name="status">
+	        				  <option value="0">Chưa giao hàng</option>
+							  <option value="1">Chưa giao hàng</option>
+							  <option value="2">Đang vận chuyển</option>
+							  <option value="3">Đã giao hàng</option>
+							</select>
+						</div>
         			</div>
 	        		
-	        		<button class="btn btn-xs btn-success mb-10" type="submit" style="height:35px;">Tìm kiếm</button>
+	        		<button class="btn btn-xs btn-success mb-10" type="submit" style="width: 10%">Tìm kiếm</button>
 	       		</div>     
         	</div>
         	   	
@@ -86,7 +97,7 @@
 	               			<td>${itemOrder.createdDate}</td>
 							<td>${itemOrder.deliveryDate}</td>
 	                        <td>${itemOrder.totalMoney}</td>
-							<td>${itemOrder.status == 0 ?"Chưa giao hàng":itemOrder.status==2?"Đã giao hàng":"Đang vận chuyển"}</td>
+							<td>${itemOrder.status == 1 ?"Chưa giao hàng":itemOrder.status==2?"Đã giao hàng":"Đang vận chuyển"}</td>
 	                        <td>
 	                            <div class="hidden-sm hidden-xs action-buttons">
 	                                
@@ -109,7 +120,7 @@
                 
                 <tfoot align="center" style="display:<c:out value="${not empty listProductJstl ?'none':''}" ></c:out>">
 			        <tr>
-			           <td colspan="8">Không có dữ liệu</td>
+			           <td colspan="9">Không có dữ liệu</td>
 			        </tr>
     			</tfoot>
                 
@@ -128,84 +139,7 @@
             </div>
         </div>
     </div><!-- /.main-content -->
-    <div id="modalProduct" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header no-padding">
-                    <div class="table-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                            <span class="white">&times;</span>
-                        </button>
-                        Thêm mới sản phẩm
-                    </div>
-                </div>
-
-                <form class="form-horizontal" role="form" id="formAddProduct" enctype="multipart/form-data">              
-                    <div class="modal-body no-padding">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mã sản phẩm</label>
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="Mã sản phẩm" class="col-xs-10 col-sm-9" name="code" id="code"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tên sản phẩm </label>
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="Tên sản phẩm" class="col-xs-10 col-sm-9" name="name" id="name"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Giá sản phẩm </label>
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="Giá sản phẩm" class="col-xs-10 col-sm-9" name="price" id="price"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Link website </label>
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="website" class="col-xs-10 col-sm-9" name="websiteUrl" id="websiteUrl"/>
-                            </div>
-                        </div>
-                
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ảnh sản phẩm </label>
-                            <div class="col-sm-9">
-                                <input type="file"  placeholder="website" class="col-xs-10 col-sm-9" name="file" id="file"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Mô tả </label>
-                            <div class="col-sm-9">
-                                <textarea  class="col-xs-10 col-sm-9" name="description" id="description">
-                                	
-                                </textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-										<label class="control-label col-xs-12 col-sm-3 no-padding-right"> Thể loại </label>
-										<div class="col-sm-9" style="width: 300px;">
-											<select name="idCategories" multiple="multiple" class="3col active" >
-												<c:forEach var="itemCategory" items="${listCategory}">
-													<option value="${itemCategory.id}">${itemCategory.name}</option>
-												</c:forEach>
-                                                
-                                            </select>							
-										</div>
-						</div>
-                    </div>
-                    <div class="modal-footer no-margin-top" style="display: flex;justify-content: space-around;">
-                        <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal" >
-                            <i class="ace-icon fa fa-times"></i>
-                            Close
-                        </button>
-                        <button class="btn btn-sm btn-success pull-left"  id="submitProduct" >
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- PAGE CONTENT ENDS -->
+    
     
     <div id="editModalProduct" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
