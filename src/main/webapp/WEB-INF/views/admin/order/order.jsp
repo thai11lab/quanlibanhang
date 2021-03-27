@@ -51,7 +51,7 @@
         				<div style="display: flex;flex-direction: column;width:20%" >
 	        				<label>Trạng thái đơn hàng</label>
 	        				<select  style="height: 35px;width: 100%" name="status" id="status">
-	        				  <option value="0">Chưa giao hàng</option>
+	        				  <option value="0">Tất cả</option>
 							  <option value="1">Chưa giao hàng</option>
 							  <option value="2">Đang vận chuyển</option>
 							  <option value="3">Đã giao hàng</option>
