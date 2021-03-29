@@ -271,6 +271,9 @@
                 startPage: currentPage,        
                 onPageClick: function (event, page) {
                 	$("#keyword").val(localStorage.getItem("keyword"));
+                	$("#dateOrder").val(localStorage.getItem("dateOrder"));
+                	$("#dateRecive").val(localStorage.getItem("dateRecive"));
+                	$("#status").val(localStorage.getItem("status"));
                     if(currentPage != page){  
                         $("#pageIndex").val(page);
                         $("#pageSize").val(pageSize);

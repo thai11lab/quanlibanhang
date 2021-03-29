@@ -328,7 +328,8 @@
                 totalPages: totalPages,
                 visiblePages: 10,  
                 startPage: currentPage,        
-                onPageClick: function (event, page) { 
+                onPageClick: function (event, page) {
+                	$("#keyword").val(localStorage.getItem("keyword"));
                     if(currentPage != page){  
                         $("#pageIndex").val(page);
                         $("#pageSize").val(pageSize);
