@@ -221,6 +221,8 @@
     </div><!-- PAGE CONTENT ENDS -->
     <script type="text/javascript">
     	function mySearch(){
+    		var str = window.location.href.toString();
+            alert(str);
     		var key = document.getElementById("keyword").value;
     		var dateOrder = document.getElementById("dateOrder").value;
     		var dateRecive = document.getElementById("dateRecive").value;

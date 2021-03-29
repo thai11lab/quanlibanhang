@@ -31,6 +31,8 @@
 	<script
 		src="<c:url value='/template/admin/assets/js/jquery.2.1.1.min.js' />"></script>
 		<link rel="stylesheet" href="<c:url value='/template/admin/assets/sweetalert2/sweetalert2.min.css' />" />
+	<script src="<c:url value='/template/clientlogic/checkUrlParameter/checkUrlParameter.js' />"></script>
+	
 </head>
 <body class="no-skin">
 	<!-- header -->
