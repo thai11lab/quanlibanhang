@@ -40,12 +40,17 @@
         <!-- div.table-responsive -->
 
         <!-- div.dataTables_borderWrap -->
-        <form:form action="${urlProducts}" role="form" id="formProduct" modelAttribute="model" method="get">
+        <form:form action="${urlProducts}" role="form" id="formCategory" modelAttribute="model" method="get">
         <div>
         	<div style="margin-bottom: 10px;">
         		<div style="width: 100%;display: flex;">
-	        		<input type="text" class="" name="keyword" style="width: 100%">
-	        		<button class="btn btn-xs btn-success mb-10" type="submit" style="height:35px">Tìm kiếm</button>
+        			<div style="width:70%">
+        				<input type="text" class="" name="keyword" id="keyword">
+        			</div>	        		
+	        		<div style="flex-grow:1;width:30%">
+	        			<div class="btn btn-xs btn-danger mb-10"  style="height:35px;flex-grow:1;" onclick="myReset()">Reset</div>
+	        			<div class="btn btn-xs btn-success mb-10"  style="height:35px;flex-grow:1;" onclick="mySearch()">Tìm kiếm</div>
+	        		</div>  		
 	       		</div>     
         	</div>
         	   	
@@ -192,6 +197,26 @@
         </div><!-- /.modal-dialog -->
     </div><!-- PAGE CONTENT ENDS -->
     <script type="text/javascript">
+    
+	    function mySearch(){
+			var key = document.getElementById("keyword").value;
+			
+			
+			localStorage.setItem("keyword",key);
+			
+			document.getElementById("formCategory").submit();
+			
+		}
+		
+		function myReset(){
+			document.getElementById("keyword").value="";
+			
+			
+			localStorage.removeItem("keyword");
+			document.getElementById("formCategory").submit();
+			
+		}
+		
 	    $(function () {
 	        $('select[multiple].active.3col').multiselect({
 	            columns: 1,
