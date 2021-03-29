@@ -240,10 +240,11 @@
     		document.getElementById("dateRecive").value="";
     		document.getElementById("status").value="";
     		
-    		localStorage.setItem("keyword",key);
-    		localStorage.setItem("dateOrder",dateOrder);
-    		localStorage.setItem("dateRecive",dateRecive);
-    		localStorage.setItem("status",status);	
+    		localStorage.removeItem("keyword");
+    		localStorage.removeItem("dateOrder");
+    		localStorage.removeItem("dateRecive");
+    		localStorage.removeItem("status");
+    		document.getElementById("formOrder").submit();
     	}
 	    $(function () {
 	        $('select[multiple].active.3col').multiselect({
