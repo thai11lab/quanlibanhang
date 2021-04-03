@@ -95,7 +95,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom{
 			
 			for (String categoryEntity : listCategoryName) {
 				categoryIndex+=1;
-				sql.append("AND categorys.name = :category"+categoryIndex);
+				sql.append(" AND categorys.name = :category"+categoryIndex);
 			}
 		}
 		Query query = em.createNativeQuery(sql.toString(),ProductEntity.class);

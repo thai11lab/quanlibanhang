@@ -7,7 +7,7 @@
 <title><dec:title default="Admin Page" /></title>
 <link rel="stylesheet"
 	href="<c:url value='/template/admin/assets/css/bootstrap.min.css' />" />
-	
+
 <link rel="stylesheet"
 	href="<c:url value='/template/admin/assets/css/jquery.multiselect.css' />" />
 <link rel="stylesheet"

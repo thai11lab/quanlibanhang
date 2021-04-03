@@ -30,7 +30,11 @@ a<%@ page language="java" contentType="text/html; charset=UTF-8"
 					<div class="form-group">
 						<input type="password" class="form-control" id="password" name="j_password" placeholder="Mật khẩu">
 					</div>
-					<button type="submit" class="btn btn-primary" >Đăng nhập</button>
+					<div>
+						<a href="#">Quên mật khẩu?</a>
+						<a href="signUp">Đăng kí tài khoản</a>
+					</div>
+					<button type="submit" class="btn btn-primary">Đăng nhập</button>
 				</form>
 			</div>
 		</div>

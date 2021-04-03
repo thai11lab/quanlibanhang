@@ -17,8 +17,6 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="${urlHome}">Home</a></li>
-                            <li><a href="#">Categories</a></li>
-                            <li><a href="#">Hot</a></li>
                             <li><a href="./shop.html">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
@@ -42,10 +40,16 @@
                             	<a href="#">Register</a>
                             </security:authorize>
                             <security:authorize access="isAuthenticated()">	                        
-	                            <a href="#">Xin chào,<%=SecurityUtils.getPrincipal().getFullName()%>
-	                            	
-	                            </a>
-		                        <a href="#">Register</a>                       	                            	                        
+	                            <div href="" class="hello-user">Welcome,<%=SecurityUtils.getPrincipal().getFullName()%>
+	                            	<ul class="hover-ul">
+	                            		<li>
+	                            			<a href="#">Thông tin tài khoản</a>
+	                            		</li>
+	                            		<li>
+	                            			<a href="logout">Đăng xuất</a>
+	                            		</li>
+	                            	</ul>
+	                            </div>                    	                            	                        
                         	</security:authorize>
                         </div>
                         

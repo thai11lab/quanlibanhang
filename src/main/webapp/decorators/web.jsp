@@ -15,6 +15,7 @@
     <!-- Css Styles -->
 	
     <link rel="stylesheet" href="<c:url value='/template/web/css/bootstrap.min.css'/>" type="text/css">
+    <link rel="stylesheet" href="<c:url value='/template/web/css/hover.css'/>" type="text/css">
     <link rel="stylesheet" href='<c:url value='/template/web/css/font-awesome.min.css'> </c:url>' type="text/css">
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href='<c:url value="/template/web/css/elegant-icons.css"></c:url>' type="text/css">

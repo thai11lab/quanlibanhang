@@ -21,6 +21,10 @@
        <pattern>/dang-nhap*</pattern>
     </decorator>
     
+    <decorator name="signUp" page="login.jsp">
+       <pattern>/signUp*</pattern>
+    </decorator>
+    
 	<decorator name="cart" page="web.jsp">
        <pattern>/detail_cart</pattern>
     </decorator>

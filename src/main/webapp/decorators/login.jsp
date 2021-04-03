@@ -5,11 +5,13 @@
 <head>
     <title><dec:title default="Đăng nhập" /></title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link href="<c:url value='/template/login/style.css' />" rel="stylesheet" type="text/css" media="all"/>
+	<script src='<c:url value="/template/web/js/jquery-3.3.1.min.js"></c:url>'></script>
+    <script src='<c:url value="/template/web/js/bootstrap.min.js"></c:url>'></script>
+    <script src="<c:url value='/template/tada/tata.js' />"></script>
 </head>
 <body id="LoginForm">
     <dec:body/>
+    
 </body>
 </html>
