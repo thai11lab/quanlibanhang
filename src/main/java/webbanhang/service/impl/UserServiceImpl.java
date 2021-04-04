@@ -1,6 +1,7 @@
 package webbanhang.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +22,16 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private RoleRepository roleRepository;  
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Override
 	@Transactional
 	public void saveOne(UserDto dto) {
 		// TODO Auto-generated method stub
 		UserEntity userEntity = UserMapper.convertToEntity(dto);
+		userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+		userEntity.setStatus(1);
 		Long userIdRole = (long) 3;
 		RoleEntity roleEntity = roleRepository.getOne(userIdRole);
 		
